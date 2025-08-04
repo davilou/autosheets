@@ -22,6 +22,10 @@ RUN npx prisma generate
 # Build the application
 RUN npm run build
 
+# Copiar script de inicialização
+COPY start.sh ./
+RUN chmod +x start.sh
+
 # Create non-root user (corrigido para Alpine)
 RUN addgroup -g 1001 -S nodejs && \
     adduser -S nextjs -u 1001 -G nodejs
@@ -39,5 +43,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3000/api/health || exit 1
 
-# Start the application
-CMD ["npm", "start"]
+# Start both applications
+CMD ["./start.sh"]
