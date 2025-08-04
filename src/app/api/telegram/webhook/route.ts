@@ -100,10 +100,18 @@ export async function POST(request: Request) {
   }
 }
 
-// Função para processar resposta da odd (mantém a mesma lógica)
-async function handleOddReply(update: unknown, betKey: string, betData: BetData) {
+// Função para processar resposta da odd (corrigir tipagem)
+async function handleOddReply(update: any, betKey: string, betData: BetData) {
+  // Adicionar verificações de segurança
+  if (!update?.message?.chat?.id || !update?.message?.text) {
+    console.error('❌ Update inválido recebido:', update);
+    return;
+  }
+  
   const chatId = update.message.chat.id;
   const messageText = update.message.text.trim();
+  
+  console.log(`📊 Processando resposta da ODD: "${messageText}" para chave: ${betKey}`);
   
   const oddReal = parseFloat(messageText.replace(',', '.'));
   console.log(`📊 Odd recebida: ${messageText} -> ${oddReal}`);
@@ -113,26 +121,34 @@ async function handleOddReply(update: unknown, betKey: string, betData: BetData)
     betData.pegou = false;
     betData.odd_real = null;
     
+    console.log('💾 Salvando aposta como NÃO PEGA no Google Sheets:', betData);
     const success = await sheetsService.addBetData(betData);
     
-    await sendTelegramMessage(
-      chatId,
-      `❌ **Aposta não realizada**\n\n` +
-      `⚽ **Jogo:** ${betData.jogo}\n` +
-      `⚽ **Placar:** ${betData.placar || '0-0'}\n` +
-      `📊 **Mercado:** ${betData.mercado}\n` +
-      `📈 **Linha:** ${betData.linha_da_aposta}\n` +
-      `💰 **Odd Tipster:** ${betData.odd_tipster}\n\n` +
-      `Registrado que a aposta não foi pega.`
-    );
-    
-    console.log('❌ Aposta marcada como não realizada');
+    if (success) {
+      await sendTelegramMessage(
+        chatId,
+        `❌ **Aposta não realizada**\n\n` +
+        `⚽ **Jogo:** ${betData.jogo}\n` +
+        `⚽ **Placar:** ${betData.placar || '0-0'}\n` +
+        `📊 **Mercado:** ${betData.mercado}\n` +
+        `📈 **Linha:** ${betData.linha_da_aposta}\n` +
+        `💰 **Odd Tipster:** ${betData.odd_tipster}\n\n` +
+        `✅ Registrado que a aposta não foi pega.`
+      );
+      console.log('✅ Aposta marcada como não realizada e salva com sucesso');
+    } else {
+      console.error('❌ Erro ao salvar aposta não realizada');
+      await sendTelegramMessage(
+        chatId,
+        `❌ **Erro ao salvar**\n\nHouve erro ao salvar no Google Sheets. Verifique os logs.`
+      );
+    }
   } else if (!isNaN(oddReal) && oddReal > 0) {
     // Aposta foi pega com odd válida
     betData.pegou = true;
     betData.odd_real = oddReal;
     
-    console.log('💾 Salvando aposta no Google Sheets:', betData);
+    console.log('💾 Salvando aposta PEGA no Google Sheets:', betData);
     
     const success = await sheetsService.addBetData(betData);
     
@@ -149,8 +165,9 @@ async function handleOddReply(update: unknown, betKey: string, betData: BetData)
         `📊 **Status:** ${betData.resultado_aposta}`
       );
       
-      console.log('✅ Aposta salva com sucesso');
+      console.log('✅ Aposta salva com sucesso no Google Sheets');
     } else {
+      console.error('❌ Erro ao salvar aposta no Google Sheets');
       await sendTelegramMessage(
         chatId,
         `❌ **Erro ao salvar**\n\nHouve erro ao salvar no Google Sheets. Verifique os logs.`
@@ -158,15 +175,13 @@ async function handleOddReply(update: unknown, betKey: string, betData: BetData)
     }
   } else {
     // Odd inválida
+    console.log(`❌ Odd inválida recebida: ${messageText}`);
     await sendTelegramMessage(
       chatId,
       `❌ **Odd inválida**\n\nPor favor, responda com um número válido ou 0 para \"não peguei\".\n\nExemplos: 1.85, 2.50, 0`
     );
     return; // Não remove do cache
   }
-  
-  // REMOVER: Esta linha estava causando o erro
-  // pendingBets.delete(betKey);
 }
 
 async function sendTelegramMessage(chatId: number, text: string) {
