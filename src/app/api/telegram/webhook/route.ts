@@ -53,14 +53,13 @@ export async function POST(request: Request) {
       
       console.log(`📨 Mensagem de ${userId}: "${messageText}"`);
       
-      // Verificar se é uma resposta a uma notificação do bot
-      // ...
-      // Na função POST, substitua a verificação do monitor:
+      // NOVO: Verificar se é uma resposta
       if (message.reply_to_message) {
         const repliedMessageId = message.reply_to_message.message_id;
         const betKey = `${chatId}_${repliedMessageId}`;
         
         console.log(`🔍 Procurando aposta com chave: ${betKey}`);
+        console.log(`🔍 Monitor disponível: ${!!gramjsMonitor}`);
         
         let betData = null;
         
@@ -68,13 +67,27 @@ export async function POST(request: Request) {
         if (gramjsMonitor) {
           betData = gramjsMonitor.getPendingBet(betKey);
           console.log(`📋 Aposta encontrada no GramJS monitor: ${!!betData}`);
+          if (betData) {
+            console.log(`📋 Dados da aposta no monitor:`, betData);
+          }
+        } else {
+          console.log('⚠️ GramJS monitor não está disponível!');
         }
         
         // Se não encontrou no monitor, verificar no cache compartilhado
         if (!betData) {
+          console.log(`🔍 Verificando cache compartilhado para: ${betKey}`);
           betData = SharedBetCache.getBet(betKey);
           console.log(`📋 Aposta encontrada no cache compartilhado: ${!!betData}`);
+          if (betData) {
+            console.log(`📋 Dados da aposta no cache:`, betData);
+          }
         }
+        
+        // NOVO: Log do estado dos caches
+        console.log('📊 Estado dos caches:');
+        console.log('- Monitor pendingBets size:', gramjsMonitor ? gramjsMonitor.getPendingBetsCount() : 'N/A');
+        console.log('- Cache file exists:', require('fs').existsSync('.bet-cache.json'));
         
         if (betData) {
           console.log('💰 Processando resposta à notificação...');
@@ -87,10 +100,19 @@ export async function POST(request: Request) {
           SharedBetCache.removeBet(betKey);
           
           return NextResponse.json({ ok: true, processed: true });
+        } else {
+          console.log('❌ Nenhuma aposta pendente encontrada para esta resposta');
+          console.log('❌ Chave procurada:', betKey);
+          console.log('❌ Isso pode indicar que:');
+          console.log('   1. A aposta expirou ou foi removida');
+          console.log('   2. O monitor não está funcionando');
+          console.log('   3. Há um problema na geração da chave');
         }
+      } else {
+        console.log('ℹ️ Mensagem não é uma resposta (não tem reply_to_message)');
       }
-      
-      console.log('ℹ️ Mensagem não relacionada a apostas pendentes');
+    } else {
+      console.log('ℹ️ Update não contém mensagem de texto');
     }
     
     return NextResponse.json({ ok: true, processed: false });

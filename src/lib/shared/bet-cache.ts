@@ -12,27 +12,37 @@ interface CacheData {
 export class SharedBetCache {
   static saveBet(key: string, betData: BetData) {
     try {
-      // CORREÇÃO: Tipar explicitamente o cache
       let cache: CacheData = {};
       if (fs.existsSync(CACHE_FILE)) {
-        cache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8')) as CacheData;
+        const fileContent = fs.readFileSync(CACHE_FILE, 'utf8');
+        console.log(`📖 Conteúdo atual do cache: ${fileContent}`);
+        cache = JSON.parse(fileContent) as CacheData;
       }
       cache[key] = betData;
-      fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
+      const newContent = JSON.stringify(cache, null, 2);
+      fs.writeFileSync(CACHE_FILE, newContent);
       console.log(`💾 Aposta salva no cache: ${key}`);
+      console.log(`💾 Cache agora contém ${Object.keys(cache).length} apostas`);
     } catch (error) {
-      console.error('Erro ao salvar no cache:', error);
+      console.error('❌ Erro ao salvar no cache:', error);
     }
   }
 
   static getBet(key: string): BetData | null {
     try {
-      if (!fs.existsSync(CACHE_FILE)) return null;
-      // CORREÇÃO: Tipar explicitamente o cache
-      const cache: CacheData = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8')) as CacheData;
-      return cache[key] || null;
+      if (!fs.existsSync(CACHE_FILE)) {
+        console.log('📁 Arquivo de cache não existe');
+        return null;
+      }
+      const fileContent = fs.readFileSync(CACHE_FILE, 'utf8');
+      console.log(`📖 Lendo cache: ${fileContent}`);
+      const cache: CacheData = JSON.parse(fileContent) as CacheData;
+      const result = cache[key] || null;
+      console.log(`🔍 Procurando chave '${key}': ${!!result}`);
+      console.log(`🔍 Chaves disponíveis: ${Object.keys(cache).join(', ')}`);
+      return result;
     } catch (error) {
-      console.error('Erro ao ler cache:', error);
+      console.error('❌ Erro ao ler cache:', error);
       return null;
     }
   }

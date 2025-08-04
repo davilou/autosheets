@@ -266,6 +266,16 @@ class GramJSMonitor {
     return this.pendingBets.get(betKey);
   }
 
+  // NOVO: Método para debug
+  public getPendingBetsCount(): number {
+    return this.pendingBets.size;
+  }
+
+  // NOVO: Método para listar todas as chaves
+  public getPendingBetsKeys(): string[] {
+    return Array.from(this.pendingBets.keys());
+  }
+
   public removePendingBet(betKey: string): void {
     this.pendingBets.delete(betKey);
     SharedBetCache.removeBet(betKey);
