@@ -1,17 +1,10 @@
 #!/bin/bash
 
-# AutoSheets Production Deploy Script
-# Usage: ./deploy-production.sh
-
 set -e
 
-# Configuration
-APP_NAME="autosheets"
-DOMAIN="autosheets.loudigital.shop"
-BACKUP_DIR="./backups"
-LOG_FILE="/var/log/autosheets-deploy.log"
-SSL_DIR="./ssl"
+echo "🚀 Iniciando deploy do AutoSheets em produção..."
 
+<<<<<<< HEAD
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -82,11 +75,36 @@ docker image prune -f
 # Build and start services
 log "🔨 Building and starting services..."
 docker compose -f docker-compose.prod.yml up -d --build
+=======
+# Verificar se .env.production existe
+if [ ! -f ".env.production" ]; then
+    echo "❌ Arquivo .env.production não encontrado!"
+    echo "Por favor, crie o arquivo .env.production com as variáveis necessárias."
+    exit 1
+fi
 
-# Wait for services to be healthy
-log "⏳ Waiting for services to be healthy..."
-sleep 60
+# Criar backup do banco de dados se existir
+echo "📦 Criando backup do banco de dados..."
+mkdir -p backups
+DATE=$(date +"%Y%m%d_%H%M%S")
+if docker compose -f docker-compose.prod.yml ps postgres | grep -q "Up"; then
+    docker compose -f docker-compose.prod.yml exec -T postgres pg_dump -U autosheets autosheets > "backups/backup_${DATE}.sql" || echo "⚠️  Backup falhou, continuando..."
+fi
 
+# Parar containers existentes
+echo "🛑 Parando containers existentes..."
+docker compose -f docker-compose.prod.yml down || true
+
+# Limpar containers e imagens antigas
+echo "🧹 Limpando containers e imagens antigas..."
+docker system prune -f
+>>>>>>> 20511edaadf61f23176dcbf7cc0660b8b06d113e
+
+# Construir e subir os serviços
+echo "🔨 Construindo e iniciando serviços..."
+docker compose -f docker-compose.prod.yml up --build -d
+
+<<<<<<< HEAD
 # Check service health
 log "🔍 Checking service health..."
 for service in postgres redis autosheets; do
@@ -165,3 +183,30 @@ log "📊 Health Check: https://$DOMAIN/api/health"
 log "📝 Logs: docker compose -f docker-compose.prod.yml logs -f"
 
 log "🚀 AutoSheets is now running in production!"
+=======
+# Aguardar serviços ficarem prontos
+echo "⏳ Aguardando serviços ficarem prontos..."
+sleep 30
+
+# Executar migrations
+echo "🗄️  Executando migrations do banco de dados..."
+docker compose -f docker-compose.prod.yml exec -T autosheets npx prisma generate
+docker compose -f docker-compose.prod.yml exec -T autosheets npx prisma db push
+
+# Verificar status dos serviços
+echo "✅ Verificando status dos serviços..."
+docker compose -f docker-compose.prod.yml ps
+
+# Testar conectividade
+echo "🔍 Testando conectividade..."
+sleep 10
+if curl -f http://localhost/api/health > /dev/null 2>&1; then
+    echo "✅ Aplicação está respondendo!"
+else
+    echo "⚠️  Aplicação pode não estar respondendo ainda. Verifique os logs."
+fi
+
+echo "🎉 Deploy concluído!"
+echo "📊 Para monitorar os logs: docker compose -f docker-compose.prod.yml logs -f"
+echo "📈 Para verificar status: docker compose -f docker-compose.prod.yml ps"
+>>>>>>> 20511edaadf61f23176dcbf7cc0660b8b06d113e
