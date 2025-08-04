@@ -54,12 +54,23 @@ export async function POST(request: Request) {
       console.log(`📨 Mensagem de ${userId}: "${messageText}"`);
       
       // NOVO: Verificar se é uma resposta
-      if (message.reply_to_message) {
-        const repliedMessageId = message.reply_to_message.message_id;
-        const betKey = `${chatId}_${repliedMessageId}`;
-        
-        console.log(`🔍 Procurando aposta com chave: ${betKey}`);
-        console.log(`🔍 Monitor disponível: ${!!gramjsMonitor}`);
+        if (message.reply_to_message) {
+          const repliedMessageId = message.reply_to_message.message_id;
+          // CORREÇÃO: Usar o mesmo padrão do GramJS
+          const betKey = `${userId}_${repliedMessageId}`; // Em vez de chatId
+          
+          console.log('🔍 Debug da chave:');
+          console.log('- chatId:', chatId);
+          console.log('- userId:', userId);
+          console.log('- repliedMessageId:', repliedMessageId);
+          console.log('- betKey gerada:', betKey);
+          
+          if (gramjsMonitor) {
+            console.log('- Chaves disponíveis no monitor:', gramjsMonitor.getPendingBetsKeys());
+          }
+          
+          console.log(`🔍 Procurando aposta com chave: ${betKey}`);
+          console.log(`🔍 Monitor disponível: ${!!gramjsMonitor}`);}]}]}
         
         let betData = null;
         
