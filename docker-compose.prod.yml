@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: autosheets_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: autosheets
+      POSTGRES_PASSWORD: senha_postgres_forte_123
+      POSTGRES_DB: autosheets
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    ports:
+      - "5432:5432"
+    networks:
+      - autosheets_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U autosheets -d autosheets"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: autosheets_redis
+    restart: unless-stopped
+    command: redis-server --requirepass senha_redis_forte_456 --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - autosheets_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "senha_redis_forte_456", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Next.js Application
+  autosheets:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: autosheets_app
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - autosheets_network
+    volumes:
+      - ./backups:/app/backups
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: autosheets_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      autosheets:
+        condition: service_healthy
+    networks:
+      - autosheets_network
+
+volumes:
+  postgres_data:
+  redis_data:
+  nginx_logs:
+
+networks:
+  autosheets_network:
+    driver: bridge
