@@ -170,7 +170,7 @@ export default function Home() {
                   <tbody>
                     {sheetsData.slice(1).map((row, index) => (
                       <tr key={index}>
-                        {row.map((cell: any, cellIndex: number) => (
+                        {row.map((cell: unknown, cellIndex: number) => (
                           <td key={cellIndex} className="border border-gray-300 p-2">
                             {cell}
                           </td>

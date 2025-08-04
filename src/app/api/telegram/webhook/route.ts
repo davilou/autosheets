@@ -101,7 +101,7 @@ export async function POST(request: Request) {
 }
 
 // Função para processar resposta da odd (mantém a mesma lógica)
-async function handleOddReply(update: any, betKey: string, betData: BetData) {
+async function handleOddReply(update: unknown, betKey: string, betData: BetData) {
   const chatId = update.message.chat.id;
   const messageText = update.message.text.trim();
   
