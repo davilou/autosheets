@@ -22,12 +22,14 @@ RUN npx prisma generate
 # Build the application
 RUN npm run build
 
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+# Create non-root user (corrigido para Alpine)
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001 -G nodejs
 
 # Change ownership of the app directory
 RUN chown -R nextjs:nodejs /app
+
+# Switch to non-root user
 USER nextjs
 
 # Expose port
