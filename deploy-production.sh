@@ -4,7 +4,7 @@ set -e
 
 echo "🚀 Iniciando deploy do AutoSheets em produção..."
 
-<<<<<<< HEAD
+ HEAD
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -98,13 +98,13 @@ docker compose -f docker-compose.prod.yml down || true
 # Limpar containers e imagens antigas
 echo "🧹 Limpando containers e imagens antigas..."
 docker system prune -f
->>>>>>> 20511edaadf61f23176dcbf7cc0660b8b06d113e
+ 20511edaadf61f23176dcbf7cc0660b8b06d113e
 
 # Construir e subir os serviços
 echo "🔨 Construindo e iniciando serviços..."
 docker compose -f docker-compose.prod.yml up --build -d
 
-<<<<<<< HEAD
+HEAD
 # Check service health
 log "🔍 Checking service health..."
 for service in postgres redis autosheets; do
@@ -209,4 +209,4 @@ fi
 echo "🎉 Deploy concluído!"
 echo "📊 Para monitorar os logs: docker compose -f docker-compose.prod.yml logs -f"
 echo "📈 Para verificar status: docker compose -f docker-compose.prod.yml ps"
->>>>>>> 20511edaadf61f23176dcbf7cc0660b8b06d113e
+ 20511edaadf61f23176dcbf7cc0660b8b06d113e
