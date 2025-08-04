@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV === 'development';
-
 const nextConfig: NextConfig = {
   // Desabilitar ESLint durante o build
   eslint: {
@@ -12,15 +10,6 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  
-  // Configuração para Cloudflare Pages (apenas em produção)
-  ...(isDev ? {} : {
-    output: 'export',
-    trailingSlash: true,
-    images: {
-      unoptimized: true
-    }
-  }),
   
   // ... existing code ...
   async headers() {
