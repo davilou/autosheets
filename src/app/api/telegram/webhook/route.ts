@@ -70,7 +70,7 @@ export async function POST(request: Request) {
           }
           
           console.log(`🔍 Procurando aposta com chave: ${betKey}`);
-          console.log(`🔍 Monitor disponível: ${!!gramjsMonitor}`);}]}]}
+          console.log(`🔍 Monitor disponível: ${!!gramjsMonitor}`);
         
         let betData = null;
         
