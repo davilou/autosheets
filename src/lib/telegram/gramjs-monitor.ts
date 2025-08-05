@@ -12,6 +12,9 @@ interface TelegramMessage {
   photo?: any;
   senderId?: bigint;
   peerId?: any;
+  replyTo?: {
+    replyToMsgId: number;
+  };
 }
 
 interface TelegramPeer {
@@ -127,18 +130,28 @@ class GramJSMonitor {
       
       const chatId = this.getChatId(message.peerId as TelegramPeer);
       
-      if (!this.allowedChatIds.has(chatId.toString())) {
+      // CORREÇÃO: Aceitar mensagens de grupos monitorados OU mensagens privadas do seu usuário
+      const isAllowedGroup = this.allowedChatIds.has(chatId.toString());
+      const isPrivateFromUser = chatId.toString() === this.yourUserId;
+      
+      if (!isAllowedGroup && !isPrivateFromUser) {
         return;
       }
 
-      console.log(`👀 Nova mensagem no grupo monitorado: ${chatId}`);
-      
-      if (message.text) {
-        await this.processTextMessage(message, chatId);
-      }
-      
-      if (message.photo) {
-        await this.processPhotoMessage(message, chatId);
+      if (isAllowedGroup) {
+        console.log(`👀 Nova mensagem no grupo monitorado: ${chatId}`);
+        
+        if (message.text) {
+          await this.processTextMessage(message, chatId);
+        }
+        
+        if (message.photo) {
+          await this.processPhotoMessage(message, chatId);
+        }
+      } else if (isPrivateFromUser) {
+        console.log(`💬 Mensagem privada recebida: ${message.text}`);
+        // Aqui você pode processar a resposta da odd
+        await this.processPrivateMessage(message);
       }
     }, new NewMessage({}));
   }
@@ -302,6 +315,39 @@ class GramJSMonitor {
   async getSessionString(): Promise<string> {
     // CORREÇÃO: Usar any para evitar problemas de tipagem
     return (this.client.session.save() as any);
+  }
+
+  private async processPrivateMessage(message: TelegramMessage) {
+    // Verificar se é uma resposta a uma mensagem do bot
+    if (!message.replyTo) {
+      console.log('📝 Mensagem privada não é uma resposta');
+      return;
+    }
+
+    const repliedMessageId = message.replyTo.replyToMsgId;
+    const betKey = `${this.yourUserId}_${repliedMessageId}`;
+    
+    console.log(`🔍 Procurando aposta para chave: ${betKey}`);
+    
+    const betData = this.getPendingBet(betKey);
+    if (betData && message.text) {
+      console.log(`💰 Processando resposta da odd: ${message.text}`);
+      
+      // Processar a odd aqui ou delegar para o webhook
+      // Você pode usar a mesma lógica do handleOddReply do webhook
+      await this.handleOddResponse(message.text, betKey, betData);
+    } else {
+      console.log('❌ Aposta não encontrada ou mensagem sem texto');
+    }
+  }
+
+  private async handleOddResponse(oddText: string, betKey: string, betData: BetData) {
+    // Implementar a mesma lógica do webhook aqui
+    // Ou fazer uma chamada para o webhook com os dados
+    console.log(`Processando odd: ${oddText} para aposta: ${betKey}`);
+    
+    // Remover da memória após processar
+    this.removePendingBet(betKey);
   }
 
   async stop() {
