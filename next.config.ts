@@ -6,9 +6,9 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   
-  // Ignorar erros de TypeScript durante o build
+  // TypeScript configurado para mostrar erros
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   
   // ... existing code ...
