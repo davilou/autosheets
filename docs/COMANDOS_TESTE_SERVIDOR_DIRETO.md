@@ -276,6 +276,20 @@ chmod +x scripts/testar-deteccao-reply.sh
 ./scripts/testar-deteccao-reply.sh
 ```
 
+### Scripts de Teste Específicos dos Logs
+```bash
+# Teste específico dos logs do webhook
+chmod +x scripts/testar-logs-webhook.sh
+./scripts/testar-logs-webhook.sh
+```
+
+### Debug da Estrutura do Payload
+```bash
+# Debug da estrutura do payload
+chmod +x scripts/debug-payload-estrutura.sh
+./scripts/debug-payload-estrutura.sh
+```
+
 ### Monitoramento em Tempo Real
 ```bash
 # Em um terminal separado, monitore os logs
