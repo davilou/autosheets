@@ -56,8 +56,8 @@ export async function POST(request: Request) {
       // NOVO: Verificar se é uma resposta
         if (message.reply_to_message) {
           const repliedMessageId = message.reply_to_message.message_id;
-          // CORREÇÃO: Usar o mesmo padrão do GramJS
-          const betKey = `${userId}_${repliedMessageId}`; // Em vez de chatId
+          // CORREÇÃO: Usar o ID da mensagem à qual está respondendo
+          const betKey = `${userId}_${repliedMessageId}`;
           
           console.log('🔍 Debug da chave:');
           console.log('- chatId:', chatId);
