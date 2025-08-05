@@ -29,20 +29,45 @@ export class SharedBetCache {
   }
 
   static getBet(key: string): BetData | null {
+    console.log(`🔍 [CACHE] Procurando chave: ${key}`);
+    
     try {
       if (!fs.existsSync(CACHE_FILE)) {
-        console.log('📁 Arquivo de cache não existe');
+        console.log('❌ [CACHE] Arquivo não existe');
         return null;
       }
+      
       const fileContent = fs.readFileSync(CACHE_FILE, 'utf8');
-      console.log(`📖 Lendo cache: ${fileContent}`);
+      console.log(`📖 [CACHE] Conteúdo do arquivo: ${fileContent}`);
+      
       const cache: CacheData = JSON.parse(fileContent) as CacheData;
+      const keys = Object.keys(cache);
       const result = cache[key] || null;
-      console.log(`🔍 Procurando chave '${key}': ${!!result}`);
-      console.log(`🔍 Chaves disponíveis: ${Object.keys(cache).join(', ')}`);
+      
+      console.log(`📋 [CACHE] Total de apostas: ${keys.length}`);
+      console.log(`📋 [CACHE] Chaves disponíveis: [${keys.join(', ')}]`);
+      console.log(`🎯 [CACHE] Chave '${key}' encontrada: ${!!result}`);
+      
+      if (result) {
+        console.log(`📊 [CACHE] Dados da aposta:`, {
+          jogo: result.jogo,
+          odd_tipster: result.odd_tipster,
+          timestamp: result.timestamp
+        });
+      } else {
+        console.log(`❌ [CACHE] Chave '${key}' não encontrada`);
+        console.log(`💡 [CACHE] Chaves similares:`);
+        keys.forEach(k => {
+          const similarity = k.includes(key.split('_')[0]) || k.includes(key.split('_')[1]);
+          if (similarity) {
+            console.log(`   - ${k} (similar)`);
+          }
+        });
+      }
+      
       return result;
     } catch (error) {
-      console.error('❌ Erro ao ler cache:', error);
+      console.error('❌ [CACHE] Erro ao ler cache:', error);
       return null;
     }
   }

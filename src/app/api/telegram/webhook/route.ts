@@ -29,6 +29,28 @@ export function setGramJSMonitor(monitor: GramJSMonitor) {
 export async function POST(request: Request) {
   console.log('🔄 Webhook recebido');
   
+  // NOVO: Verificar e conectar monitor se necessário
+  if (!gramjsMonitor && process.env.TELEGRAM_SESSION_STRING) {
+    console.log('🔗 Monitor não conectado. Tentando conectar...');
+    try {
+      const monitor = new GramJSMonitor({
+        apiId: parseInt(process.env.TELEGRAM_API_ID!),
+        apiHash: process.env.TELEGRAM_API_HASH!,
+        session: process.env.TELEGRAM_SESSION_STRING!,
+        allowedChatIds: process.env.MONITORED_CHAT_IDS!.split(','),
+        yourUserId: process.env.YOUR_USER_ID!,
+        botToken: process.env.TELEGRAM_BOT_TOKEN!
+      });
+      
+      setGramJSMonitor(monitor);
+      console.log('✅ Monitor GramJS conectado ao webhook');
+    } catch (error) {
+      console.error('❌ Erro ao conectar monitor:', error);
+    }
+  }
+  
+  console.log(`🔗 Status do monitor: ${gramjsMonitor ? 'CONECTADO' : 'DESCONECTADO'}`);
+  
   try {
     const update = await request.json();
     console.log('📦 Update recebido:', JSON.stringify(update, null, 2));
