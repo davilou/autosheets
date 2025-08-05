@@ -247,7 +247,7 @@ class GramJSMonitor {
       
       if (result.ok) {
         const botMessageId = result.result.message_id;
-        const betKey = `${this.yourUserId}_${botMessageId}`;
+        const betKey = `${result.result.chat.id}_${botMessageId}`;
         
         this.pendingBets.set(betKey, betData);
         SharedBetCache.saveBet(betKey, betData);

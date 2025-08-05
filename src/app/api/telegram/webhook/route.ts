@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     });
     
     const message = update.message;
-    
+     
     // Processar apenas respostas às notificações do bot
     if (update.message && update.message.text) {
       const chatId = update.message.chat.id;
@@ -64,6 +64,9 @@ export async function POST(request: Request) {
           console.log('- userId:', userId);
           console.log('- repliedMessageId:', repliedMessageId);
           console.log('- betKey gerada:', betKey);
+          
+          // ADICIONAR: Log das chaves disponíveis
+          console.log('- Chaves no cache compartilhado:', Object.keys(require('fs').existsSync('.bet-cache.json') ? JSON.parse(require('fs').readFileSync('.bet-cache.json', 'utf8')) : {}));
           
           if (gramjsMonitor) {
             console.log('- Chaves disponíveis no monitor:', gramjsMonitor.getPendingBetsKeys());
