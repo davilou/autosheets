@@ -172,7 +172,7 @@ export default function Home() {
                       <tr key={index}>
                         {row.map((cell: unknown, cellIndex: number) => (
                           <td key={cellIndex} className="border border-gray-300 p-2">
-                            {cell}
+                            {String(cell)}
                           </td>
                         ))}
                       </tr>
