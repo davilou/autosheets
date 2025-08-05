@@ -245,3 +245,36 @@ Após o teste manual, faça o teste real:
 ---
 
 **Execute o script completo acima para testar todo o sistema de uma vez!**
+
+## 🔧 Scripts Adicionais para Diagnóstico
+
+### Localizar Cache no Servidor
+```bash
+# Dar permissão e executar script de localização
+chmod +x scripts/localizar-cache-servidor.sh
+./scripts/localizar-cache-servidor.sh
+```
+
+### Teste Completo no Container
+```bash
+# Script que testa diretamente no container Docker
+chmod +x scripts/teste-reply-container.sh
+./scripts/teste-reply-container.sh
+```
+
+### Monitoramento em Tempo Real
+```bash
+# Em um terminal separado, monitore os logs
+docker compose -f docker-compose.prod.yml logs -f autosheets_app | grep -E "(💰|reply|betKey|Processando|cache|✅|❌|webhook)"
+```
+
+## 🏁 Conclusão
+
+Após executar estes comandos, você terá:
+- ✅ Localizado onde o cache está sendo salvo (host vs container)
+- ✅ Verificado se o cache existe e contém apostas
+- ✅ Testado o processamento de replies via webhook no ambiente correto
+- ✅ Confirmado se as apostas são removidas após processamento
+- ✅ Monitorado os logs para validar o funcionamento
+
+Se tudo funcionar corretamente, o sistema de replies estará operacional! 🎉
