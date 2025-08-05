@@ -21,7 +21,7 @@ const sheetsService = new GoogleSheetsService(sheetsConfig);
 let gramjsMonitor: GramJSMonitor | null = null;
 
 // NOVO: Função para conectar ao monitor existente
-export function setGramJSMonitor(monitor: GramJSMonitor) {
+function setGramJSMonitor(monitor: GramJSMonitor) {
   gramjsMonitor = monitor;
   console.log('🔗 Monitor GramJS conectado ao webhook');
 }
