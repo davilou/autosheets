@@ -262,6 +262,20 @@ chmod +x scripts/teste-reply-container.sh
 ./scripts/teste-reply-container.sh
 ```
 
+### Script de Debug Detalhado do Webhook
+```bash
+# Diagnóstico completo com logs em tempo real
+chmod +x scripts/debug-webhook-reply.sh
+./scripts/debug-webhook-reply.sh
+```
+
+### Script para Testar Detecção de Reply
+```bash
+# Testa diferentes formatos de payload
+chmod +x scripts/testar-deteccao-reply.sh
+./scripts/testar-deteccao-reply.sh
+```
+
 ### Monitoramento em Tempo Real
 ```bash
 # Em um terminal separado, monitore os logs
