@@ -135,6 +135,51 @@ docker compose -f docker-compose.prod.yml logs -f autosheets | grep -E "(reply|b
 
 # Comandos para Diagnosticar Replies no Servidor
 
+## 🚨 PROBLEMA IDENTIFICADO: NGINX FALHANDO
+
+Baseado na análise dos logs, o problema está no **nginx que não consegue iniciar**, impedindo o acesso ao webhook.
+
+### ✅ O que está funcionando:
+- Monitor GramJS conectado
+- Detecção de apostas funcionando
+- Cache salvando dados corretamente
+- Notificações sendo enviadas
+
+### ❌ O que não está funcionando:
+- Nginx com status "Restarting (1)" 
+- Webhook retornando código 000 (sem resposta)
+- Replies não sendo processados
+
+## 🔧 CORREÇÃO IMEDIATA
+
+### Executar script de correção do nginx:
+```bash
+# Dar permissão e executar
+chmod +x scripts/corrigir-nginx.sh
+./scripts/corrigir-nginx.sh
+```
+
+### Comandos manuais alternativos:
+```bash
+# 1. Verificar status atual
+docker compose -f docker-compose.prod.yml ps
+
+# 2. Ver logs do nginx
+docker compose -f docker-compose.prod.yml logs nginx --tail=50
+
+# 3. Reiniciar nginx
+docker compose -f docker-compose.prod.yml restart nginx
+
+# 4. Testar webhook após correção
+curl -I https://autosheets.loudigital.shop/api/telegram/webhook
+
+# 5. Se ainda não funcionar, recriar containers
+docker compose -f docker-compose.prod.yml down
+docker compose -f docker-compose.prod.yml up -d
+```
+
+## 📊 COMANDOS DE DIAGNÓSTICO DETALHADO
+
 ## 1. Verificar Logs do Webhook (Filtrados)
 
 ```bash
