@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "monitor": "tsx src/scripts/start-gramjs-monitor.ts"
+    "monitor": "tsx src/scripts/start-gramjs-monitor.ts",
+    "webhook:set": "tsx src/scripts/setup-webhook.ts set",
+    "webhook:delete": "tsx src/scripts/setup-webhook.ts delete",
+    "webhook:info": "tsx src/scripts/setup-webhook.ts info"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
