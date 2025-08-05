@@ -314,6 +314,9 @@ class GramJSMonitor {
   }
 
   private async processPrivateMessage(message: TelegramMessage) {
+    // Debug: Log completo do objeto message para inspeção
+    console.log('🔍 DEBUG - Objeto message completo:', JSON.stringify(message, null, 2));
+    
     // Verificar se é uma resposta a uma mensagem do bot
     if (!message.replyTo) {
       console.log('📝 Mensagem privada não é uma resposta');
