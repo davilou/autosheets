@@ -39,7 +39,13 @@ export const redisUtils = {
   // Buscar cache
   async getCache<T>(key: string): Promise<T | null> {
     const cached = await redis.get(key)
-    return cached ? JSON.parse(cached) : null
+    if (!cached) return null
+    try {
+      return JSON.parse(cached)
+    } catch (error) {
+      console.error('Erro ao fazer parse do cache Redis:', error.message)
+      return null
+    }
   },
 
   // Deletar cache
@@ -54,7 +60,13 @@ export const redisUtils = {
 
   async getSession<T>(sessionId: string): Promise<T | null> {
     const session = await redis.get(`session:${sessionId}`)
-    return session ? JSON.parse(session) : null
+    if (!session) return null
+    try {
+      return JSON.parse(session)
+    } catch (error) {
+      console.error('Erro ao fazer parse da sessão Redis:', error.message)
+      return null
+    }
   },
 
   async deleteSession(sessionId: string) {

@@ -16,7 +16,13 @@ export class SharedBetCache {
       if (fs.existsSync(CACHE_FILE)) {
         const fileContent = fs.readFileSync(CACHE_FILE, 'utf8');
         console.log(`📖 Conteúdo atual do cache: ${fileContent}`);
-        cache = JSON.parse(fileContent) as CacheData;
+        try {
+          cache = JSON.parse(fileContent) as CacheData;
+        } catch (parseError) {
+          console.error('❌ Erro ao fazer parse do cache, reinicializando:', parseError.message);
+          cache = {};
+          fs.writeFileSync(CACHE_FILE, '{}');
+        }
       }
       cache[key] = betData;
       const newContent = JSON.stringify(cache, null, 2);
@@ -40,7 +46,13 @@ export class SharedBetCache {
       const fileContent = fs.readFileSync(CACHE_FILE, 'utf8');
       console.log(`📖 [CACHE] Conteúdo do arquivo: ${fileContent}`);
       
-      const cache: CacheData = JSON.parse(fileContent) as CacheData;
+      let cache: CacheData;
+      try {
+        cache = JSON.parse(fileContent) as CacheData;
+      } catch (parseError) {
+        console.error('❌ [CACHE] Erro ao fazer parse, retornando null:', parseError.message);
+        return null;
+      }
       const keys = Object.keys(cache);
       const result = cache[key] || null;
       
@@ -76,7 +88,13 @@ export class SharedBetCache {
     try {
       if (!fs.existsSync(CACHE_FILE)) return;
       // CORREÇÃO: Tipar explicitamente o cache
-      const cache: CacheData = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8')) as CacheData;
+      let cache: CacheData;
+      try {
+        cache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8')) as CacheData;
+      } catch (parseError) {
+        console.error('❌ [CACHE] Erro ao fazer parse para remoção:', parseError.message);
+        return;
+      }
       delete cache[key];
       fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2));
       console.log(`🗑️ Aposta removida do cache: ${key}`);

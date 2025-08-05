@@ -52,7 +52,15 @@ export async function POST(request: Request) {
   console.log(`🔗 Status do monitor: ${gramjsMonitor ? 'CONECTADO' : 'DESCONECTADO'}`);
   
   try {
-    const update = await request.json();
+    let update;
+    try {
+      console.log('🔍 Fazendo parse do JSON da requisição...');
+      update = await request.json();
+      console.log('✅ Parse do JSON da requisição bem-sucedido');
+    } catch (jsonError) {
+      console.error('❌ Erro ao fazer parse do JSON da requisição:', jsonError.message);
+      return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
+    }
     console.log('📦 Update recebido:', JSON.stringify(update, null, 2));
     
     // NOVO: Log detalhado
@@ -78,17 +86,44 @@ export async function POST(request: Request) {
       // NOVO: Verificar se é uma resposta
         if (message.reply_to_message) {
           const repliedMessageId = message.reply_to_message.message_id;
-          // CORREÇÃO: Usar o ID da mensagem à qual está respondendo
-          const betKey = `${userId}_${repliedMessageId}`;
+          // CORREÇÃO CRÍTICA: Usar YOUR_USER_ID consistentemente como no monitor
+          const yourUserId = process.env.YOUR_USER_ID!;
+          const betKey = `${yourUserId}_${repliedMessageId}`;
           
-          console.log('🔍 Debug da chave:');
+          console.log('🔧 CORREÇÃO APLICADA: Usando YOUR_USER_ID para consistência');
+          
+          console.log('🔍 Debug da chave (CORRIGIDA):');
           console.log('- chatId:', chatId);
-          console.log('- userId:', userId);
+          console.log('- userId (remetente):', userId);
+          console.log('- yourUserId (usado na chave):', yourUserId);
           console.log('- repliedMessageId:', repliedMessageId);
           console.log('- betKey gerada:', betKey);
+          console.log('- Consistência com monitor: ✅');
           
           // ADICIONAR: Log das chaves disponíveis
-          console.log('- Chaves no cache compartilhado:', Object.keys(require('fs').existsSync('.bet-cache.json') ? JSON.parse(require('fs').readFileSync('.bet-cache.json', 'utf8')) : {}));
+          try {
+            console.log('🔍 Verificando se arquivo .bet-cache.json existe...');
+            const fileExists = require('fs').existsSync('.bet-cache.json');
+            console.log('📁 Arquivo .bet-cache.json existe:', fileExists);
+            
+            if (fileExists) {
+              console.log('🔍 Lendo conteúdo do arquivo .bet-cache.json...');
+              const fileContent = require('fs').readFileSync('.bet-cache.json', 'utf8');
+              console.log('📄 Conteúdo bruto do arquivo:', fileContent.substring(0, 100) + '...');
+              
+              console.log('🔍 Fazendo parse do JSON do cache...');
+              const cacheData = JSON.parse(fileContent);
+              console.log('✅ Parse do cache bem-sucedido');
+              console.log('- Chaves no cache compartilhado:', Object.keys(cacheData));
+            } else {
+              console.log('- Arquivo não existe, usando objeto vazio');
+              console.log('- Chaves no cache compartilhado: []');
+            }
+          } catch (error) {
+            console.log('❌ Erro ao ler cache compartilhado:', error.message);
+            console.log('❌ Stack trace:', error.stack);
+            console.log('- Chaves no cache compartilhado: []');
+          }
           
           if (gramjsMonitor) {
             console.log('- Chaves disponíveis no monitor:', gramjsMonitor.getPendingBetsKeys());
