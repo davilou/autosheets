@@ -27,6 +27,6 @@ else
     # Capturar sinais de parada
     trap cleanup SIGTERM SIGINT
     
-    # Aguardar os processos
-    wait $NEXTJS_PID
+    # Aguardar ambos os processos
+    wait
 fi
