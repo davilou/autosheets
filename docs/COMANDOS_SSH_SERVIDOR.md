@@ -24,28 +24,28 @@ cd /caminho/para/autosheets
 
 ### 1. Verificar se os containers estão rodando
 ```bash
-docker-compose -f docker-compose.prod.yml ps
+docker compose -f docker-compose.prod.yml ps
 ```
 
 ### 2. Verificar logs da aplicação
 ```bash
 # Ver logs em tempo real
-docker-compose -f docker-compose.prod.yml logs -f autosheets
+docker compose -f docker-compose.prod.yml logs -f autosheets
 
 # Ver últimas 50 linhas dos logs
-docker-compose -f docker-compose.prod.yml logs autosheets --tail=50
+docker compose -f docker-compose.prod.yml logs autosheets --tail=50
 ```
 
 ### 3. Verificar status do webhook do Telegram
 ```bash
 # Executar dentro do container
-docker-compose -f docker-compose.prod.yml exec autosheets npm run webhook:info
+docker compose -f docker-compose.prod.yml exec autosheets npm run webhook:info
 ```
 
 ### 4. Testar conectividade do webhook
 ```bash
 # Executar teste do webhook
-docker-compose -f docker-compose.prod.yml exec autosheets node test-webhook-reply.js
+docker compose -f docker-compose.prod.yml exec autosheets node test-webhook-reply.js
 ```
 
 ## 🐛 Debug de Replies
@@ -53,13 +53,13 @@ docker-compose -f docker-compose.prod.yml exec autosheets node test-webhook-repl
 ### Verificar se a aplicação está processando mensagens
 ```bash
 # Monitorar logs em tempo real enquanto envia um reply
-docker-compose -f docker-compose.prod.yml logs -f autosheets | grep -E "(reply|betKey|webhook)"
+docker compose -f docker-compose.prod.yml logs -f autosheets | grep -E "(reply|betKey|webhook)"
 ```
 
 ### Verificar variáveis de ambiente
 ```bash
 # Verificar se as variáveis estão carregadas
-docker-compose -f docker-compose.prod.yml exec autosheets env | grep TELEGRAM
+docker compose -f docker-compose.prod.yml exec autosheets env | grep TELEGRAM
 ```
 
 ### Verificar se o endpoint está respondendo
@@ -74,13 +74,13 @@ curl -X POST https://autosheets.loudigital.shop/api/telegram/webhook \
 
 ### Reiniciar apenas a aplicação
 ```bash
-docker-compose -f docker-compose.prod.yml restart autosheets
+docker compose -f docker-compose.prod.yml restart autosheets
 ```
 
 ### Recriar e reiniciar todos os containers
 ```bash
-docker-compose -f docker-compose.prod.yml down
-docker-compose -f docker-compose.prod.yml up -d
+docker compose -f docker-compose.prod.yml down
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 ### Verificar se o webhook está acessível externamente
@@ -92,7 +92,7 @@ curl -I https://autosheets.loudigital.shop/api/telegram/webhook
 ### Verificar logs do nginx (se aplicável)
 ```bash
 # Se estiver usando nginx como proxy
-docker-compose -f docker-compose.prod.yml logs nginx
+docker compose -f docker-compose.prod.yml logs nginx
 ```
 
 ## 📊 Monitoramento em Tempo Real
@@ -100,10 +100,10 @@ docker-compose -f docker-compose.prod.yml logs nginx
 ### Para monitorar replies em tempo real:
 ```bash
 # Terminal 1: Logs da aplicação
-docker-compose -f docker-compose.prod.yml logs -f autosheets
+docker compose -f docker-compose.prod.yml logs -f autosheets
 
 # Terminal 2: Logs filtrados para replies
-docker-compose -f docker-compose.prod.yml logs -f autosheets | grep -E "(reply|betKey|processamento)"
+docker compose -f docker-compose.prod.yml logs -f autosheets | grep -E "(reply|betKey|processamento)"
 ```
 
 ## ✅ Checklist de Verificação
