@@ -130,11 +130,7 @@ class GramJSMonitor {
       
       const chatId = this.getChatId(message.peerId as TelegramPeer);
       
-      // CORREÇÃO: Aceitar mensagens de grupos monitorados OU mensagens privadas do seu usuário
-      const isAllowedGroup = this.allowedChatIds.has(chatId.toString());
-      const isPrivateFromUser = chatId.toString() === this.yourUserId;
-      
-      if (!isAllowedGroup && !isPrivateFromUser) {
+      if (!this.allowedChatIds.has(chatId.toString()) && chatId.toString() !== this.yourUserId) {
         return;
       }
 
