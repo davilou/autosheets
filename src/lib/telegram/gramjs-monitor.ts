@@ -260,13 +260,15 @@ class GramJSMonitor {
       
       if (result.ok) {
         const botMessageId = result.result.message_id;
-        const betKey = `${result.result.chat.id}_${botMessageId}`;
+        // CORREÇÃO: Usar yourUserId ao invés de chat.id para consistência
+        const betKey = `${this.yourUserId}_${botMessageId}`;
         
         this.pendingBets.set(betKey, betData);
         SharedBetCache.saveBet(betKey, betData);
         
         console.log(`📤 Notificação enviada. Aguardando resposta para: ${betKey}`);
         console.log(`💾 Aposta salva em ambos os caches: ${betKey}`);
+        console.log(`🔍 DEBUG - Chat ID: ${result.result.chat.id}, Your User ID: ${this.yourUserId}`);
       } else {
         console.error('❌ Erro na API do Telegram:', result);
       }
@@ -331,16 +333,23 @@ class GramJSMonitor {
     const betKey = `${this.yourUserId}_${repliedMessageId}`;
     
     console.log(`🔍 Procurando aposta para chave: ${betKey}`);
+    console.log(`🔍 Chaves disponíveis no monitor:`, this.getPendingBetsKeys());
     
     const betData = this.getPendingBet(betKey);
     if (betData && message.text) {
       console.log(`💰 Processando resposta da odd: ${message.text}`);
+      console.log(`📋 Dados da aposta encontrada:`, betData);
       
-      // Processar a odd aqui ou delegar para o webhook
-      // Você pode usar a mesma lógica do handleOddReply do webhook
-      await this.handleOddResponse(message.text, betKey, betData);
+      // IMPORTANTE: Delegar para o webhook para manter consistência
+      // O webhook tem toda a lógica de processamento e salvamento
+      console.log('🔄 Delegando processamento para o webhook...');
+      
+      // Manter a aposta no cache para o webhook processar
+      // Não remover aqui, deixar o webhook fazer isso
     } else {
       console.log('❌ Aposta não encontrada ou mensagem sem texto');
+      console.log(`❌ Texto da mensagem: ${message.text}`);
+      console.log(`❌ BetData encontrado: ${!!betData}`);
     }
   }
 
