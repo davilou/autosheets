@@ -134,6 +134,10 @@ class GramJSMonitor {
         return;
       }
 
+      // Definir as variáveis que estavam faltando
+      const isAllowedGroup = this.allowedChatIds.has(chatId.toString());
+      const isPrivateFromUser = chatId.toString() === this.yourUserId;
+
       if (isAllowedGroup) {
         console.log(`👀 Nova mensagem no grupo monitorado: ${chatId}`);
         
