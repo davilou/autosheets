@@ -19,7 +19,7 @@ export class SharedBetCache {
         try {
           cache = JSON.parse(fileContent) as CacheData;
         } catch (parseError) {
-          console.error('❌ Erro ao fazer parse do cache, reinicializando:', parseError.message);
+          console.error('❌ Erro ao fazer parse do cache, reinicializando:', parseError instanceof Error ? parseError.message : String(parseError));
           cache = {};
           fs.writeFileSync(CACHE_FILE, '{}');
         }
@@ -50,7 +50,7 @@ export class SharedBetCache {
       try {
         cache = JSON.parse(fileContent) as CacheData;
       } catch (parseError) {
-        console.error('❌ [CACHE] Erro ao fazer parse, retornando null:', parseError.message);
+        console.error('❌ [CACHE] Erro ao fazer parse, retornando null:', parseError instanceof Error ? parseError.message : String(parseError));
         return null;
       }
       const keys = Object.keys(cache);
@@ -64,7 +64,7 @@ export class SharedBetCache {
         console.log(`📊 [CACHE] Dados da aposta:`, {
           jogo: result.jogo,
           odd_tipster: result.odd_tipster,
-          timestamp: result.timestamp
+          data: result.data
         });
       } else {
         console.log(`❌ [CACHE] Chave '${key}' não encontrada`);
@@ -92,7 +92,7 @@ export class SharedBetCache {
       try {
         cache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8')) as CacheData;
       } catch (parseError) {
-        console.error('❌ [CACHE] Erro ao fazer parse para remoção:', parseError.message);
+        console.error('❌ [CACHE] Erro ao fazer parse para remoção:', parseError instanceof Error ? parseError.message : String(parseError));
         return;
       }
       delete cache[key];

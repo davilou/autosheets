@@ -40,7 +40,7 @@
 
 ### Teste de Reply Simulado:
 ```bash
-curl -X POST "https://autosheets.loudigital.com.br/api/telegram/webhook"
+curl -X POST "https://autosheets.loudigital.shop/api/telegram/webhook"
 # Resultado: {"ok":true} - Status 200
 ```
 
@@ -162,7 +162,7 @@ export async function POST(request: Request) {
 docker compose -f docker-compose.prod.yml logs autosheets | grep "Monitor GramJS conectado"
 
 # Testar reply
-curl -X POST "https://autosheets.loudigital.com.br/api/telegram/webhook" \
+curl -X POST "https://autosheets.loudigital.shop/api/telegram/webhook" \
      -H "Content-Type: application/json" \
      -d '{"message":{"reply_to_message":{"message_id":386}}}'
 

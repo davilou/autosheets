@@ -98,7 +98,7 @@ simular_reply_monitorado() {
         echo "📨 Message ID: $MESSAGE_ID"
         
         # Simular webhook reply
-        curl -X POST "https://autosheets.loudigital.com.br/api/telegram/webhook" \
+        curl -X POST "https://autosheets.loudigital.shop/api/telegram/webhook" \
              -H "Content-Type: application/json" \
              -d "{
                  \"update_id\": 999999999,

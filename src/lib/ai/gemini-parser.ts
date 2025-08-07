@@ -12,7 +12,7 @@ interface GeminiResponse {
 
 export class GeminiParser {
   private static readonly API_KEY = process.env.GEMINI_API_KEY;
-  private static readonly API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+  private static readonly API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
   static async parseBetMessage(message: string, chatId: number, userId: number, username: string): Promise<BetData | null> {
     if (!this.API_KEY) {
@@ -61,7 +61,7 @@ Se não conseguir extrair alguma informação, use null para esse campo.`;
           }],
           generationConfig: {
             temperature: 0.1,
-            maxOutputTokens: 200,
+            maxOutputTokens: 2000,
           }
         })
       });
@@ -188,7 +188,7 @@ Se não conseguir extrair alguma informação, use null para esse campo.`;
           }],
           generationConfig: {
             temperature: 0.1,
-            maxOutputTokens: 300,
+            maxOutputTokens: 2000,
           }
         })
       });

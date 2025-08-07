@@ -92,7 +92,7 @@ EOF
             -X POST \
             -H "Content-Type: application/json" \
             -d "$WEBHOOK_PAYLOAD" \
-            "https://autosheets.loudigital.com.br/api/telegram/webhook")
+            "https://autosheets.loudigital.shop/api/telegram/webhook")
         
         echo "📥 RESPOSTA DO WEBHOOK:"
         echo "----------------------"

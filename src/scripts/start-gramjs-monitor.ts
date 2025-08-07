@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import GramJSMonitor from '@/lib/telegram/gramjs-monitor';
 // NOVO: Import da função do webhook
-import { setGramJSMonitor } from '@/app/api/telegram/webhook/route';
+import { setGramJSMonitor } from '@/lib/telegram/monitor-connection';
 
 // Carregar variáveis de ambiente do .env.local
 dotenv.config({ path: path.join(process.cwd(), '.env.local') });
