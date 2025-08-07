@@ -212,7 +212,7 @@ docker exec autosheets_app ps aux | grep -E "(tsx|gramjs|monitor)"
 
 ```bash
 # Simular um reply via webhook
-curl -X POST https://autosheets.loudigital.com.br/api/webhook/telegram \
+curl -X POST https://autosheets.loudigital.shop/api/webhook/telegram \
   -H "Content-Type: application/json" \
   -d '{
     "message": {

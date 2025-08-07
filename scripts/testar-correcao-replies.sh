@@ -58,7 +58,7 @@ testar_webhook_detalhado() {
             echo "📡 Enviando reply de teste..."
             
             # Enviar reply simulado
-            RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "https://autosheets.loudigital.com.br/api/telegram/webhook" \
+            RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "https://autosheets.loudigital.shop/api/telegram/webhook" \
                  -H "Content-Type: application/json" \
                  -d "{
                      \"update_id\": 999999999,

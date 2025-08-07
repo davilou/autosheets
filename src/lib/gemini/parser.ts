@@ -11,13 +11,19 @@ interface GeminiResponse {
       parts: {
         text: string;
       }[];
+      role?: string;
     };
+    finishReason?: string;
+    index?: number;
   }[];
+  usageMetadata?: any;
+  modelVersion?: string;
+  responseId?: string;
 }
 
 export class GeminiParser {
   private static readonly API_KEY = process.env.GEMINI_API_KEY;
-  private static readonly API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+  private static readonly API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
   static async parseBetMessage(message: string, chatId: number, userId: number, username: string): Promise<BetData | null> {
     if (!this.API_KEY) {
@@ -76,7 +82,7 @@ Se não conseguir extrair alguma informação, use null para esse campo (exceto 
           }],
           generationConfig: {
             temperature: 0.1,
-            maxOutputTokens: 300,
+            maxOutputTokens: 2000,
           }
         })
       });
@@ -94,7 +100,26 @@ Se não conseguir extrair alguma informação, use null para esse campo (exceto 
         return null;
       }
 
-      const text = result.candidates[0].content.parts[0].text;
+      // Verificações de segurança para a estrutura da resposta
+      const candidate = result.candidates[0];
+      if (!candidate || !candidate.content) {
+        console.error('Estrutura de resposta do Gemini inválida - candidate ou content ausente:', JSON.stringify(result, null, 2));
+        return null;
+      }
+
+      // Verificar se parts existe e não está vazio
+      if (!candidate.content.parts || candidate.content.parts.length === 0) {
+        console.error('Estrutura de resposta do Gemini inválida - parts ausente ou vazio:', JSON.stringify(result, null, 2));
+        console.error('Possível causa: finishReason =', candidate.finishReason);
+        return null;
+      }
+
+      const text = candidate.content.parts[0].text;
+      if (!text) {
+        console.error('Texto da resposta do Gemini está vazio');
+        return null;
+      }
+      
       console.log('Resposta do Gemini:', text);
 
       // Extrair JSON da resposta
@@ -209,7 +234,7 @@ Se não conseguir extrair alguma informação, use null para esse campo (exceto 
           }],
           generationConfig: {
             temperature: 0.1,
-            maxOutputTokens: 300,
+            maxOutputTokens: 2000,
           }
         })
       });

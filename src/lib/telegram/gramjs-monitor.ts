@@ -169,8 +169,8 @@ class GramJSMonitor {
         return;
       }
 
-      // CORREÇÃO: Usar any para evitar problemas de tipagem
-      const sender: any = await this.client.getEntity(message.senderId);
+      // CORREÇÃO: Converter bigint para number para compatibilidade com getEntity
+      const sender: any = await this.client.getEntity(Number(message.senderId));
       const username = sender.username || sender.firstName || 'Usuário';
 
       const betData = await GeminiParser.parseBetMessage(
@@ -201,13 +201,14 @@ class GramJSMonitor {
         return;
       }
 
-      // CORREÇÃO: Usar any para evitar problemas de tipagem
-      const sender: any = await this.client.getEntity(message.senderId);
+      // CORREÇÃO: Converter bigint para number para compatibilidade com getEntity
+      const sender: any = await this.client.getEntity(Number(message.senderId));
       const username = sender.username || sender.firstName || 'Usuário';
       
       // CORREÇÃO: Usar any para downloadMedia
       const imageBuffer: any = await this.client.downloadMedia(message.photo, {
-        progressCallback: (progress: number) => {
+        progressCallback: (downloaded: any, total: any) => {
+          const progress = Number(downloaded) / Number(total);
           console.log(`📥 Download: ${Math.round(progress * 100)}%`);
         }
       });

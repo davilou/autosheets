@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import GoogleSheetsService from '@/lib/sheets/service';
 import { GeminiParser } from '@/lib/gemini/parser';
 import { BetData } from '@/lib/telegram/parser';
-// NOVO: Import do GramJS monitor
+// CORREÇÃO: Import do GramJS monitor com auto-inicialização
+import { getGramJSMonitor, setGramJSMonitor } from '@/lib/telegram/monitor-connection';
 import GramJSMonitor from '@/lib/telegram/gramjs-monitor';
 import { SharedBetCache } from '@/lib/shared/bet-cache';
 
@@ -17,51 +18,64 @@ const sheetsConfig = {
 
 const sheetsService = new GoogleSheetsService(sheetsConfig);
 
-// NOVO: Instância global do GramJS monitor
-let gramjsMonitor: GramJSMonitor | null = null;
-
-// NOVO: Função para conectar ao monitor existente
-function setGramJSMonitor(monitor: GramJSMonitor) {
-  gramjsMonitor = monitor;
-  console.log('🔗 Monitor GramJS conectado ao webhook');
-}
-
-export async function POST(request: Request) {
-  console.log('🔄 Webhook recebido');
+// CORREÇÃO: Função para auto-inicializar monitor se necessário
+async function ensureMonitorConnected() {
+  let monitor = getGramJSMonitor();
   
-  // NOVO: Verificar e conectar monitor se necessário
-  if (!gramjsMonitor && process.env.TELEGRAM_SESSION_STRING) {
-    console.log('🔗 Monitor não conectado. Tentando conectar...');
+  if (!monitor) {
+    console.log('🔧 Monitor não conectado, inicializando automaticamente...');
+    
     try {
-      const monitor = new GramJSMonitor({
+      const config = {
         apiId: parseInt(process.env.TELEGRAM_API_ID!),
         apiHash: process.env.TELEGRAM_API_HASH!,
-        session: process.env.TELEGRAM_SESSION_STRING!,
-        allowedChatIds: process.env.MONITORED_CHAT_IDS!.split(','),
+        session: process.env.TELEGRAM_SESSION_STRING || '',
+        allowedChatIds: process.env.MONITORED_CHAT_IDS?.split(',') || [],
         yourUserId: process.env.YOUR_USER_ID!,
-        botToken: process.env.TELEGRAM_BOT_TOKEN!
-      });
+        botToken: process.env.TELEGRAM_BOT_TOKEN!,
+      };
       
+      monitor = new GramJSMonitor(config);
+      await monitor.start();
       setGramJSMonitor(monitor);
-      console.log('✅ Monitor GramJS conectado ao webhook');
+      
+      console.log('✅ Monitor GramJS inicializado e conectado ao webhook automaticamente');
     } catch (error) {
-      console.error('❌ Erro ao conectar monitor:', error);
+      console.error('❌ Erro ao inicializar monitor automaticamente:', error);
     }
   }
   
+  return monitor;
+}
+
+export async function POST(request: Request) {
+  console.log('🔄 WEBHOOK RECEBIDO - TIMESTAMP:', new Date().toISOString());
+  
+  // CORREÇÃO: Garantir que o monitor esteja conectado
+  const gramjsMonitor = await ensureMonitorConnected();
   console.log(`🔗 Status do monitor: ${gramjsMonitor ? 'CONECTADO' : 'DESCONECTADO'}`);
+  
+  if (gramjsMonitor) {
+    console.log('✅ Monitor disponível para processar replies');
+  } else {
+    console.log('❌ Monitor não disponível - replies não serão processados');
+  }
   
   try {
     let update;
     try {
-      console.log('🔍 Fazendo parse do JSON da requisição...');
-      update = await request.json();
-      console.log('✅ Parse do JSON da requisição bem-sucedido');
+      // Log do corpo da requisição antes do parsing
+      const requestText = await request.text();
+      console.log('📄 Corpo da requisição (primeiros 100 chars):', requestText.substring(0, 100));
+      console.log('📏 Tamanho do corpo:', requestText.length);
+      
+      // Parse do JSON
+      update = JSON.parse(requestText);
     } catch (jsonError) {
-      console.error('❌ Erro ao fazer parse do JSON da requisição:', jsonError.message);
+      console.error('❌ Erro ao fazer parse do JSON da requisição:', jsonError instanceof Error ? jsonError.message : jsonError);
       return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 });
     }
-    console.log('📦 Update recebido:', JSON.stringify(update, null, 2));
+    console.log('📦 Update recebido - message_id:', update.message?.message_id, 'reply_to:', update.message?.reply_to_message?.message_id);
     
     // NOVO: Log detalhado
     console.log('🔍 Tipo de update:', {
@@ -85,10 +99,18 @@ export async function POST(request: Request) {
       
       // NOVO: Verificar se é uma resposta
         if (message.reply_to_message) {
+          console.log('🎯 REPLY DETECTADO! Iniciando processamento...');
           const repliedMessageId = message.reply_to_message.message_id;
           // CORREÇÃO CRÍTICA: Usar YOUR_USER_ID consistentemente como no monitor
           const yourUserId = process.env.YOUR_USER_ID!;
           const betKey = `${yourUserId}_${repliedMessageId}`;
+          console.log('🎯 REPLY DEBUG - Dados extraídos:', {
+            repliedMessageId,
+            yourUserId,
+            betKey,
+            replyFromBot: message.reply_to_message.from?.is_bot,
+            replyBotUsername: message.reply_to_message.from?.username
+          });
           
           console.log('🔧 CORREÇÃO APLICADA: Usando YOUR_USER_ID para consistência');
           
@@ -120,8 +142,8 @@ export async function POST(request: Request) {
               console.log('- Chaves no cache compartilhado: []');
             }
           } catch (error) {
-            console.log('❌ Erro ao ler cache compartilhado:', error.message);
-            console.log('❌ Stack trace:', error.stack);
+            console.log('❌ Erro ao ler cache compartilhado:', error instanceof Error ? error.message : error);
+            console.log('❌ Stack trace:', error instanceof Error ? error.stack : 'N/A');
             console.log('- Chaves no cache compartilhado: []');
           }
           

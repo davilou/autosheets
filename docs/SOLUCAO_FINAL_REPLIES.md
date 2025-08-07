@@ -57,7 +57,7 @@ curl -X GET "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo"
 # Reconfigurar webhook se necessário
 curl -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook" \
   -H "Content-Type: application/json" \
-  -d '{"url": "https://autosheets.loudigital.com.br/api/telegram/webhook"}'
+  -d '{"url": "https://autosheets.loudigital.shop/api/telegram/webhook"}'
 ```
 
 ### Solução 2: Verificar Logs em Tempo Real

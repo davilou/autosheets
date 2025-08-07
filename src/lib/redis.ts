@@ -10,9 +10,6 @@ export const redis =
     host: process.env.REDIS_HOST || 'localhost',
     port: parseInt(process.env.REDIS_PORT || '6379'),
     password: process.env.REDIS_PASSWORD,
-    retryDelayOnFailover: 100,
-    enableReadyCheck: false,
-    maxRetriesPerRequest: null,
   })
 
 if (process.env.NODE_ENV !== 'production') globalForRedis.redis = redis
@@ -43,7 +40,7 @@ export const redisUtils = {
     try {
       return JSON.parse(cached)
     } catch (error) {
-      console.error('Erro ao fazer parse do cache Redis:', error.message)
+      console.error('Erro ao fazer parse do cache Redis:', error instanceof Error ? error.message : String(error))
       return null
     }
   },
@@ -64,7 +61,7 @@ export const redisUtils = {
     try {
       return JSON.parse(session)
     } catch (error) {
-      console.error('Erro ao fazer parse da sessão Redis:', error.message)
+      console.error('Erro ao fazer parse da sessão Redis:', error instanceof Error ? error.message : String(error))
       return null
     }
   },

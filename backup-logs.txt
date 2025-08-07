@@ -1,0 +1,500 @@
+﻿    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "ogo: GSC Liebenfels vs SGA Sirnitz\nÔÜ¢´©Å Placar: 0-1\n­ƒôè Mercado: Over/Under\n­ƒôê Linha: Under 2.25\n­ƒÆ░ Odd Tipster: 1.72\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta",
+    "data": "2025-08-05T21:20:51.562Z",
+    "jogo": "GSC Liebenfels vs SGA Sirnitz",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.72,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_452": {
+    "id": "-4975465313_670237902_1754432442493",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "ogo: GSC Liebenfels vs SGA Sirnitz\nÔÜ¢´©Å Placar: 0-1\n­ƒôè Mercado: Over/Under\n­ƒôê Linha: Under 2.25\n­ƒÆ░ Odd Tipster: 1.72\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta",
+    "data": "2025-08-05T22:20:42.493Z",
+    "jogo": "GSC Liebenfels vs SGA Sirnitz",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.72,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_454": {
+    "id": "-4685629042_7896849823_1754486028283",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: Ezemvelo Women vs Durban Ladies FC Women\n\nScore: 0-0\n\nBet: Over 2 (Goal Line)\nOdds: 1.88",
+    "data": "2025-08-06T13:13:48.284Z",
+    "jogo": "Ezemvelo Women vs Durban Ladies FC Women",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Over 2",
+    "odd_tipster": 1.88,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_455": {
+    "id": "-4685629042_7896849823_1754486041629",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: Ezemvelo Women vs Durban Ladies FC Women\n\nScore: 0-0\n\nBet: Over 2 (Goal Line)\nOdds: 1.88",
+    "data": "2025-08-06T13:14:01.629Z",
+    "jogo": "Ezemvelo Women vs Durban Ladies FC Women",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Over 2",
+    "odd_tipster": 1.88,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_457": {
+    "id": "-4975465313_670237902_1754493208329",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "go: GSC Liebenfels vs SGA Sirnitz\nÔÜ¢´©Å Placar: 0-1\n­ƒôè Mercado: Over/Under\n­ƒôê Linha: Under 2.25\n­ƒÆ░ Odd Tipster: 1.72\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta",
+    "data": "2025-08-06T15:13:28.329Z",
+    "jogo": "GSC Liebenfels vs SGA Sirnitz",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.72,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_460": {
+    "id": "-4975465313_670237902_1754493553133",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "go: GSC Liebenfels vs SGA Sirnitz\nÔÜ¢´©Å Placar: 0-1\n­ƒôè Mercado: Over/Under\n­ƒôê Linha: Under 2.25\n­ƒÆ░ Odd Tipster: 1.72\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta",
+    "data": "2025-08-06T15:19:13.133Z",
+    "jogo": "GSC Liebenfels vs SGA Sirnitz",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.72,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_461": {
+    "id": "-4685629042_7896849823_1754493562785",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: TJ Iskra Holic vs Spartak Myjava\n\nScore: 0-0\n\nBet: Home +2.25 (Asian Handicap)\nOdds: 1.95",
+    "data": "2025-08-06T15:19:22.785Z",
+    "jogo": "TJ Iskra Holic vs Spartak Myjava",
+    "mercado": "Asian Handicap",
+    "linha_da_aposta": "AH +2.25",
+    "odd_tipster": 1.95,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_463": {
+    "id": "-4975465313_670237902_1754493642678",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "­ƒÄ» Aposta detectada no grupo!\n\nÔÜ¢´©Å Jogo: TJ Iskra Holic vs Spartak Myjava\nÔÜ¢´©Å Placar: 0-0\n­ƒôè Mercado: Asian Handicap\n­ƒôê Linha: AH +2.25\n­ƒÆ░ Odd Tipster: 1.95\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta)",
+    "data": "2025-08-06T15:20:42.678Z",
+    "jogo": "TJ Iskra Holic vs Spartak Myjava",
+    "mercado": "Asian Handicap",
+    "linha_da_aposta": "AH +2.25",
+    "odd_tipster": 1.95,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_466": {
+    "id": "-4975465313_670237902_1754494043869",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "­ƒÄ» Aposta detectada no grupo!\n\nÔÜ¢´©Å Jogo: TJ Iskra Holic vs Spartak Myjava\nÔÜ¢´©Å Placar: 0-0\n­ƒôè Mercado: Asian Handicap\n­ƒôê Linha: AH +2.25\n­ƒÆ░ Odd Tipster: 1.95\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta)",
+    "data": "2025-08-06T15:27:23.869Z",
+    "jogo": "TJ Iskra Holic vs Spartak Myjava",
+    "mercado": "Asian Handicap",
+    "linha_da_aposta": "AH +2.25",
+    "odd_tipster": 1.95,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_468": {
+    "id": "-4975465313_670237902_1754494063579",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "­ƒÄ» Aposta detectada no grupo!\n\nÔÜ¢´©Å Jogo: TJ Iskra Holic vs Spartak Myjava\nÔÜ¢´©Å Placar: 0-0\n­ƒôè Mercado: Asian Handicap\n­ƒôê Linha: AH +2.25\n­ƒÆ░ Odd Tipster: 1.95\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta)",
+    "data": "2025-08-06T15:27:43.579Z",
+    "jogo": "TJ Iskra Holic vs Spartak Myjava",
+    "mercado": "Asian Handicap",
+    "linha_da_aposta": "AH +2.25",
+    "odd_tipster": 1.95,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_472": {
+    "id": "-4685629042_7896849823_1754495160758",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: Svaty Jur vs Raca Bratislava\n\nScore: 0-1\n\nBet: Under 4.25 (Goal Line)\nOdds: 1.83",
+    "data": "2025-08-06T15:46:00.758Z",
+    "jogo": "Svaty Jur vs Raca Bratislava",
+    "mercado": "Goal Line",
+    "linha_da_aposta": "Under 4.25",
+    "odd_tipster": 1.83,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_473": {
+    "id": "-4685629042_7896849823_1754495161249",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: ZFC 1939 Trencin vs MSK Kysucke Nove Mesto\n\nScore: 1-0\n\nBet: Under 3.5 (Goal Line)\nOdds: 1.75",
+    "data": "2025-08-06T15:46:01.249Z",
+    "jogo": "ZFC 1939 Trencin vs MSK Kysucke Nove Mesto",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 3.5",
+    "odd_tipster": 1.75,
+    "placar": "1-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  }
+}
+­ƒÆ¥ Aposta salva no cache: 670237902_474
+­ƒÆ¥ Cache agora cont├®m 13 apostas
+­ƒôñ Notifica├º├úo enviada. Aguardando resposta para: 670237902_474
+­ƒÆ¥ Aposta salva em ambos os caches: 670237902_474
+­ƒöì DEBUG - Chat ID: 670237902, Your User ID: 670237902
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒæÇ Nova mensagem no grupo monitorado: -4685629042
+­ƒôØ Analisando mensagem de texto: "Game: MTK Budapest II vs Balatonlelle SE
+
+Score: 2-0
+
+Bet: Away +2.25 (Asian Handicap)
+Odds: 1.95"
+Ô£à GEMINI_API_KEY carregada com sucesso
+Resposta do Gemini: ```json
+{
+  "jogo": "MTK Budapest II vs Balatonlelle SE",
+  "mercado": "Asian Handicap",
+  "linha_da_aposta": "AH +2.25",
+  "odd_tipster": "1.95",
+  "placar": "2-0"
+}
+```
+
+­ƒÄ» Aposta detectada no grupo!
+­ƒôû Conte├║do atual do cache: {
+  "670237902_450": {
+    "id": "-4975465313_670237902_1754428851562",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "ogo: GSC Liebenfels vs SGA Sirnitz\nÔÜ¢´©Å Placar: 0-1\n­ƒôè Mercado: Over/Under\n­ƒôê Linha: Under 2.25\n­ƒÆ░ Odd Tipster: 1.72\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta",
+    "data": "2025-08-05T21:20:51.562Z",
+    "jogo": "GSC Liebenfels vs SGA Sirnitz",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.72,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_452": {
+    "id": "-4975465313_670237902_1754432442493",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "ogo: GSC Liebenfels vs SGA Sirnitz\nÔÜ¢´©Å Placar: 0-1\n­ƒôè Mercado: Over/Under\n­ƒôê Linha: Under 2.25\n­ƒÆ░ Odd Tipster: 1.72\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta",
+    "data": "2025-08-05T22:20:42.493Z",
+    "jogo": "GSC Liebenfels vs SGA Sirnitz",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.72,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_454": {
+    "id": "-4685629042_7896849823_1754486028283",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: Ezemvelo Women vs Durban Ladies FC Women\n\nScore: 0-0\n\nBet: Over 2 (Goal Line)\nOdds: 1.88",
+    "data": "2025-08-06T13:13:48.284Z",
+    "jogo": "Ezemvelo Women vs Durban Ladies FC Women",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Over 2",
+    "odd_tipster": 1.88,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_455": {
+    "id": "-4685629042_7896849823_1754486041629",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: Ezemvelo Women vs Durban Ladies FC Women\n\nScore: 0-0\n\nBet: Over 2 (Goal Line)\nOdds: 1.88",
+    "data": "2025-08-06T13:14:01.629Z",
+    "jogo": "Ezemvelo Women vs Durban Ladies FC Women",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Over 2",
+    "odd_tipster": 1.88,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_457": {
+    "id": "-4975465313_670237902_1754493208329",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "go: GSC Liebenfels vs SGA Sirnitz\nÔÜ¢´©Å Placar: 0-1\n­ƒôè Mercado: Over/Under\n­ƒôê Linha: Under 2.25\n­ƒÆ░ Odd Tipster: 1.72\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta",
+    "data": "2025-08-06T15:13:28.329Z",
+    "jogo": "GSC Liebenfels vs SGA Sirnitz",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.72,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_460": {
+    "id": "-4975465313_670237902_1754493553133",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "go: GSC Liebenfels vs SGA Sirnitz\nÔÜ¢´©Å Placar: 0-1\n­ƒôè Mercado: Over/Under\n­ƒôê Linha: Under 2.25\n­ƒÆ░ Odd Tipster: 1.72\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta",
+    "data": "2025-08-06T15:19:13.133Z",
+    "jogo": "GSC Liebenfels vs SGA Sirnitz",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.72,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_461": {
+    "id": "-4685629042_7896849823_1754493562785",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: TJ Iskra Holic vs Spartak Myjava\n\nScore: 0-0\n\nBet: Home +2.25 (Asian Handicap)\nOdds: 1.95",
+    "data": "2025-08-06T15:19:22.785Z",
+    "jogo": "TJ Iskra Holic vs Spartak Myjava",
+    "mercado": "Asian Handicap",
+    "linha_da_aposta": "AH +2.25",
+    "odd_tipster": 1.95,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_463": {
+    "id": "-4975465313_670237902_1754493642678",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "­ƒÄ» Aposta detectada no grupo!\n\nÔÜ¢´©Å Jogo: TJ Iskra Holic vs Spartak Myjava\nÔÜ¢´©Å Placar: 0-0\n­ƒôè Mercado: Asian Handicap\n­ƒôê Linha: AH +2.25\n­ƒÆ░ Odd Tipster: 1.95\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta)",
+    "data": "2025-08-06T15:20:42.678Z",
+    "jogo": "TJ Iskra Holic vs Spartak Myjava",
+    "mercado": "Asian Handicap",
+    "linha_da_aposta": "AH +2.25",
+    "odd_tipster": 1.95,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_466": {
+    "id": "-4975465313_670237902_1754494043869",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "­ƒÄ» Aposta detectada no grupo!\n\nÔÜ¢´©Å Jogo: TJ Iskra Holic vs Spartak Myjava\nÔÜ¢´©Å Placar: 0-0\n­ƒôè Mercado: Asian Handicap\n­ƒôê Linha: AH +2.25\n­ƒÆ░ Odd Tipster: 1.95\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta)",
+    "data": "2025-08-06T15:27:23.869Z",
+    "jogo": "TJ Iskra Holic vs Spartak Myjava",
+    "mercado": "Asian Handicap",
+    "linha_da_aposta": "AH +2.25",
+    "odd_tipster": 1.95,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_468": {
+    "id": "-4975465313_670237902_1754494063579",
+    "chatId": -4975465313,
+    "userId": 670237902,
+    "username": "robert33698",
+    "message": "­ƒÄ» Aposta detectada no grupo!\n\nÔÜ¢´©Å Jogo: TJ Iskra Holic vs Spartak Myjava\nÔÜ¢´©Å Placar: 0-0\n­ƒôè Mercado: Asian Handicap\n­ƒôê Linha: AH +2.25\n­ƒÆ░ Odd Tipster: 1.95\n\n­ƒÆÄ Responda esta mensagem com a odd real que voc├¬ conseguiu\n(Digite 0 se n├úo conseguiu pegar a aposta)",
+    "data": "2025-08-06T15:27:43.579Z",
+    "jogo": "TJ Iskra Holic vs Spartak Myjava",
+    "mercado": "Asian Handicap",
+    "linha_da_aposta": "AH +2.25",
+    "odd_tipster": 1.95,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_472": {
+    "id": "-4685629042_7896849823_1754495160758",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: Svaty Jur vs Raca Bratislava\n\nScore: 0-1\n\nBet: Under 4.25 (Goal Line)\nOdds: 1.83",
+    "data": "2025-08-06T15:46:00.758Z",
+    "jogo": "Svaty Jur vs Raca Bratislava",
+    "mercado": "Goal Line",
+    "linha_da_aposta": "Under 4.25",
+    "odd_tipster": 1.83,
+    "placar": "0-1",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_473": {
+    "id": "-4685629042_7896849823_1754495161249",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: ZFC 1939 Trencin vs MSK Kysucke Nove Mesto\n\nScore: 1-0\n\nBet: Under 3.5 (Goal Line)\nOdds: 1.75",
+    "data": "2025-08-06T15:46:01.249Z",
+    "jogo": "ZFC 1939 Trencin vs MSK Kysucke Nove Mesto",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 3.5",
+    "odd_tipster": 1.75,
+    "placar": "1-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  },
+  "670237902_474": {
+    "id": "-4685629042_7896849823_1754495374989",
+    "chatId": -4685629042,
+    "userId": 7896849823,
+    "username": "Didio",
+    "message": "Game: TJ Horny Hricov vs TJ Tatran Oravske Vesele\n\nScore: 0-0\n\nBet: Under 2.25 (Goal Line)\nOdds: 1.70",
+    "data": "2025-08-06T15:49:34.989Z",
+    "jogo": "TJ Horny Hricov vs TJ Tatran Oravske Vesele",
+    "mercado": "Over/Under",
+    "linha_da_aposta": "Under 2.25",
+    "odd_tipster": 1.7,
+    "placar": "0-0",
+    "pegou": null,
+    "odd_real": null,
+    "resultado_aposta": "Pendente"
+  }
+}
+­ƒÆ¥ Aposta salva no cache: 670237902_475
+­ƒÆ¥ Cache agora cont├®m 14 apostas
+­ƒôñ Notifica├º├úo enviada. Aguardando resposta para: 670237902_475
+­ƒÆ¥ Aposta salva em ambos os caches: 670237902_475
+­ƒöì DEBUG - Chat ID: 670237902, Your User ID: 670237902
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+Ô£à Database connected successfully
+Ô£à Redis connected successfully
+­ƒÆô Monitor ativo - aguardando mensagens...
+Ô£à Database connected successfully
+Ô£à Redis connected successfully

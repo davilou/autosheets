@@ -53,7 +53,7 @@ echo ""
 echo "🧪 TESTE DE CONECTIVIDADE DO WEBHOOK:"
 echo "------------------------------------"
 echo "Testando se o webhook responde..."
-curl -s -o /dev/null -w "%{http_code}" "https://autosheets.loudigital.com.br/api/telegram/webhook" || echo "❌ Webhook não responde"
+curl -s -o /dev/null -w "%{http_code}" "https://autosheets.loudigital.shop/api/telegram/webhook" || echo "❌ Webhook não responde"
 echo ""
 
 # Verificar se há mensagens sendo processadas
@@ -66,7 +66,7 @@ echo "🎯 RESUMO DO DIAGNÓSTICO:"
 echo "========================"
 echo "1. ✅ Monitor conectado: $(docker compose -f docker-compose.prod.yml logs autosheets | grep 'Monitor GramJS conectado' | wc -l) vezes"
 echo "2. 📦 Cache existe: $(docker compose -f docker-compose.prod.yml exec autosheets test -f .bet-cache.json && echo 'SIM' || echo 'NÃO')"
-echo "3. 🌐 Webhook responde: $(curl -s -o /dev/null -w "%{http_code}" "https://autosheets.loudigital.com.br/api/telegram/webhook" 2>/dev/null || echo 'ERRO')"
+echo "3. 🌐 Webhook responde: $(curl -s -o /dev/null -w "%{http_code}" "https://autosheets.loudigital.shop/api/telegram/webhook" 2>/dev/null || echo 'ERRO')"
 echo "4. 💬 Replies processados: $(docker compose -f docker-compose.prod.yml logs autosheets | grep -i 'reply' | wc -l) encontrados"
 echo ""
 
