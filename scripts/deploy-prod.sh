@@ -145,7 +145,7 @@ adjust_compose() {
   if [ -f "$COMPOSE_FILE" ]; then
     echo "[INFO] Ajustando domínio e segredos no $COMPOSE_FILE"
     # Substitui o domínio na regra Host(`...`)
-    sed -i -E "s|Host\(`[^`]*`\)|Host(`$DOMAIN`)|g" "$COMPOSE_FILE" || true
+    sed -i -E "s|Host\(\`[^\`]*\`\)|Host(\`$DOMAIN\`)|g" "$COMPOSE_FILE" || true
 
     # Ajustar Postgres password para usar o valor definido
     if grep -qE "POSTGRES_PASSWORD:\s" "$COMPOSE_FILE"; then
