@@ -116,6 +116,10 @@ backup-*.txt
 # Webpack cache
 .cache/
 cache/
-
 # SWC cache
 .swc/
+=======
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+.bet-cache.json
