@@ -123,3 +123,4 @@ cache/
 *.tsbuildinfo
 next-env.d.ts
 .bet-cache.json
+.bet-cache.json
