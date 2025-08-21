@@ -8,46 +8,236 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  email         String   @unique
-  username      String   @unique
-  passwordHash  String   @map("password_hash")
-  role          Role     @default(USER)
-  telegramUserId BigInt? @map("telegram_user_id")
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
-  lastLogin     DateTime? @map("last_login")
-  
-  bets Bet[]
-  
+  id                  String                  @id @default(uuid())
+  email               String                  @unique
+  username            String                  @unique
+  passwordHash        String                  @map("password_hash")
+  role                Role                    @default(USER)
+  telegramUserId      BigInt?                 @map("telegram_user_id")
+  emailVerified       Boolean                 @default(false) @map("email_verified")
+  firstName           String?                 @map("first_name")
+  lastName            String?                 @map("last_name")
+  avatar              String?
+  isActive            Boolean                 @default(true) @map("is_active")
+  createdAt           DateTime                @default(now()) @map("created_at")
+  updatedAt           DateTime                @updatedAt @map("updated_at")
+  lastLogin           DateTime?               @map("last_login")
+  bets                Bet[]
+  googleCredentials   GoogleDriveCredential[]
+  queueItems          MonitorQueue[]
+  monitoredGroups     MonitoredGroup[]
+  telegramCredentials TelegramCredential[]
+  monitorSessions     UserMonitorSession[]
+  spreadsheets        UserSpreadsheet[]
+
   @@map("users")
 }
 
 model Bet {
+  id            String   @id @default(uuid())
+  betId         String   @unique @map("bet_id")
+  userId        String   @map("user_id")
+  jogo          String
+  placar        String?
+  mercado       String
+  linhaDaAposta String   @map("linha_da_aposta")
+  oddTipster    Float    @map("odd_tipster")
+  oddReal       Float?   @map("odd_real")
+  stake         Float?   @default(1.0)
+  pegou         Boolean  @default(false)
+  resultado     String?
+  lucroPrejuizo Float?   @map("lucro_prejuizo")
+  chatId        BigInt   @map("chat_id")
+  messageId     BigInt   @map("message_id")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  user          User     @relation(fields: [userId], references: [id])
+
+  @@map("bets")
+}
+
+model TelegramCredential {
+  id              String               @id @default(uuid())
+  userId          String               @map("user_id")
+  apiId           String               @map("api_id")
+  apiHash         String               @map("api_hash")
+  phoneNumber     String               @map("phone_number")
+  sessionName     String               @map("session_name")
+  telegramUserId  String?              @map("telegram_user_id")
+  status          TelegramStatus       @default(DISCONNECTED)
+  lastConnected   DateTime?            @map("last_connected")
+  lastError       String?              @map("last_error")
+  isActive        Boolean              @default(true) @map("is_active")
+  createdAt       DateTime             @default(now()) @map("created_at")
+  updatedAt       DateTime             @updatedAt @map("updated_at")
+  monitoredGroups MonitoredGroup[]
+  user            User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions        TelegramSession[]
+  monitorSessions UserMonitorSession[]
+
+  @@unique([userId, sessionName])
+  @@map("telegram_credentials")
+}
+
+model TelegramSession {
+  id             String             @id @default(uuid())
+  credentialId   String             @map("credential_id")
+  sessionData    String             @map("session_data")
+  isActive       Boolean            @default(true) @map("is_active")
+  lastUsed       DateTime           @default(now()) @map("last_used")
+  connectionLogs String?            @map("connection_logs")
+  backupData     String?            @map("backup_data")
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+  credential     TelegramCredential @relation(fields: [credentialId], references: [id], onDelete: Cascade)
+
+  @@map("telegram_sessions")
+}
+
+model MonitoredGroup {
+  id              String             @id @default(uuid())
+  userId          String             @map("user_id")
+  credentialId    String             @map("credential_id")
+  chatId          String             @map("chat_id")
+  chatTitle       String             @map("chat_title")
+  chatType        String             @map("chat_type")
+  isActive        Boolean            @default(true) @map("is_active")
+  keywords        String?
+  excludeKeywords String?            @map("exclude_keywords")
+  allowedUsers    String?            @map("allowed_users")
+  blockedUsers    String?            @map("blocked_users")
+  minOdds         Float?             @map("min_odds")
+  maxOdds         Float?             @map("max_odds")
+  timeFilters     String?            @map("time_filters")
+  lastActivity    DateTime?          @map("last_activity")
+  messageCount    Int                @default(0) @map("message_count")
+  betCount        Int                @default(0) @map("bet_count")
+  createdAt       DateTime           @default(now()) @map("created_at")
+  updatedAt       DateTime           @updatedAt @map("updated_at")
+  credential      TelegramCredential @relation(fields: [credentialId], references: [id], onDelete: Cascade)
+  user            User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, credentialId, chatId])
+  @@map("monitored_groups")
+}
+
+model UserMonitorSession {
+  id                String             @id @default(uuid())
+  userId            String             @map("user_id")
+  credentialId      String             @map("credential_id")
+  sessionId         String             @map("session_id")
+  isActive          Boolean            @default(true) @map("is_active")
+  restartRequested  Boolean            @default(false) @map("restart_requested")
+  startedAt         DateTime           @default(now()) @map("started_at")
+  lastHeartbeat     DateTime           @default(now()) @map("last_heartbeat")
+  processedMessages Int                @default(0) @map("processed_messages")
+  errorCount        Int                @default(0) @map("error_count")
+  lastError         String?            @map("last_error")
+  performance       String?
+  credential        TelegramCredential @relation(fields: [credentialId], references: [id], onDelete: Cascade)
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, credentialId])
+  @@map("user_monitor_sessions")
+}
+
+model MonitorQueue {
+  id            String      @id @default(uuid())
+  userId        String      @map("user_id")
+  sessionId     String      @map("session_id")
+  messageData   String      @map("message_data")
+  priority      Int         @default(1)
+  status        QueueStatus @default(PENDING)
+  attempts      Int         @default(0)
+  maxAttempts   Int         @default(3) @map("max_attempts")
+  scheduledFor  DateTime?   @map("scheduled_for")
+  processedAt   DateTime?   @map("processed_at")
+  errorMessage  String?     @map("error_message")
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  betId         String?     @map("bet_id")
+  chatId        BigInt?     @map("chat_id")
+  jogo          String?
+  linhaDaAposta String?     @map("linha_da_aposta")
+  lucroPrejuizo Float?      @map("lucro_prejuizo")
+  mercado       String?
+  messageId     BigInt?     @map("message_id")
+  oddReal       Float?      @map("odd_real")
+  oddTipster    Float?      @map("odd_tipster")
+  stake         Float?      @default(1.0)
+  pegou         Boolean?    @default(false)
+  placar        String?
+  resultado     String?
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status, priority, scheduledFor])
+  @@map("monitor_queue")
+}
+
+model UserSpreadsheet {
   id              String    @id @default(uuid())
   userId          String    @map("user_id")
-  jogo            String
-  placar          String?
-  mercado         String
-  linhaDaAposta   String    @map("linha_da_aposta")
-  oddTipster      Float     @map("odd_tipster")
-  oddReal         Float?    @map("odd_real")
-  pegou           Boolean   @default(false)
-  resultado       String?
-  lucroPrejuizo   Float?    @map("lucro_prejuizo")
-  chatId          BigInt    @map("chat_id")
-  messageId       BigInt    @map("message_id")
+  spreadsheetId   String    @map("spreadsheet_id")
+  name            String
+  templateType    String    @map("template_type")
+  url             String
+  driveEmail      String?   @map("drive_email")
+  isActive        Boolean   @default(true) @map("is_active")
+  isShared        Boolean   @default(false) @map("is_shared")
+  lastBackup      DateTime? @map("last_backup")
+  autoBackup      Boolean   @default(false) @map("auto_backup")
+  backupFrequency String?   @map("backup_frequency")
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
-  
-  user User @relation(fields: [userId], references: [id])
-  
-  @@map("bets")
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, spreadsheetId])
+  @@map("user_spreadsheets")
+}
+
+model GoogleDriveCredential {
+  id            String            @id @default(uuid())
+  userId        String            @map("user_id")
+  email         String
+  accessToken   String?           @map("access_token")
+  refreshToken  String?           @map("refresh_token")
+  tokenExpiry   DateTime?         @map("token_expiry")
+  scope         String?
+  status        GoogleDriveStatus @default(DISCONNECTED)
+  lastConnected DateTime?         @map("last_connected")
+  lastError     String?           @map("last_error")
+  isActive      Boolean           @default(true) @map("is_active")
+  createdAt     DateTime          @default(now()) @map("created_at")
+  updatedAt     DateTime          @updatedAt @map("updated_at")
+  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, email])
+  @@map("google_drive_credentials")
 }
 
 enum Role {
   ADMIN
   USER
-  
-  @@map("role")
+}
+
+enum TelegramStatus {
+  CONNECTED
+  DISCONNECTED
+  ERROR
+  CONNECTING
+}
+
+enum QueueStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  RETRYING
+}
+
+enum GoogleDriveStatus {
+  CONNECTED
+  DISCONNECTED
+  ERROR
+  EXPIRED
 }

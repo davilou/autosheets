@@ -33,10 +33,8 @@ export async function GET() {
     // Verificar variáveis de ambiente críticas para replies
     const replyEnvVars = {
       TELEGRAM_BOT_TOKEN: !!process.env.TELEGRAM_BOT_TOKEN,
-      YOUR_USER_ID: !!process.env.YOUR_USER_ID,
       TELEGRAM_API_ID: !!process.env.TELEGRAM_API_ID,
-      TELEGRAM_API_HASH: !!process.env.TELEGRAM_API_HASH,
-      TELEGRAM_SESSION_STRING: !!process.env.TELEGRAM_SESSION_STRING
+      TELEGRAM_API_HASH: !!process.env.TELEGRAM_API_HASH
     }
     
     const missingReplyEnvVars = Object.entries(replyEnvVars)
@@ -64,7 +62,8 @@ export async function GET() {
           status: missingReplyEnvVars.length === 0 ? 'healthy' : 'warning'
         },
         fixes: {
-          keyGeneration: 'FIXED - Using YOUR_USER_ID consistently',
+          multiUserSystem: 'IMPLEMENTED - Sistema multi-usuário ativo',
+          telegramNotifications: 'FIXED - Usando telegramUserId do usuário logado',
           status: 'APPLIED'
         }
       },

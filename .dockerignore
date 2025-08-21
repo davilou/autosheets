@@ -7,8 +7,9 @@ README.md
 .dockerignore
 docker-compose.yml
 nginx.conf
-.env*
-!.env.production.example
+.env.production
+.env.local
+.env
 .vscode
 .idea
 *.log

@@ -104,7 +104,7 @@ class TelegramBotService {
 
   private async processBetData(betData: BetData) {
     // Aqui será implementada a lógica para enviar para Google Sheets
-    console.log('Dados da aposta processados:', betData);
+    console.log(`Dados da aposta processados: id=${betData.id}, chatId=${betData.chatId}, userId=${betData.userId}, betType=${betData.betType ?? 'N/A'}, amount=${betData.amount ?? 'N/A'}, odds=${betData.odds ?? 'N/A'}`);
     
     // TODO: Integrar com Google Sheets API
     // TODO: Salvar em cache/database temporário

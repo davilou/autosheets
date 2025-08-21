@@ -4,7 +4,7 @@ set -e
 echo "🚀 Iniciando AutoSheets..."
 
 # Verificar se as variáveis do Telegram estão configuradas
-if [ -z "$TELEGRAM_API_ID" ] || [ -z "$TELEGRAM_API_HASH" ]; then
+if false; then
     echo "⚠️  Variáveis do Telegram não configuradas, apenas Next.js será iniciado"
     exec npm start
 else

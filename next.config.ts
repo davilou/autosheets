@@ -15,23 +15,6 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: '/api/telegram/webhook',
-        headers: [
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: 'https://api.telegram.org',
-          },
-          {
-            key: 'Access-Control-Allow-Methods',
-            value: 'POST',
-          },
-          {
-            key: 'Access-Control-Allow-Headers',
-            value: 'Content-Type',
-          },
-        ],
-      },
-      {
         source: '/(.*)',
         headers: [
           {

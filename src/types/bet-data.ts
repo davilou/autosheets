@@ -1,7 +1,8 @@
 export interface BetData {
   id: string;
+  betId: string;
   chatId: number;
-  userId: number;
+  userId: number | string; // Allow both number (for GeminiParser) and string (for database UUID)
   username?: string;
   message: string;
   data: Date;
@@ -13,4 +14,6 @@ export interface BetData {
   pegou?: boolean | null;
   odd_real?: number | null;
   resultado_aposta: string;
+  stake?: number; // Novo: Stake
+  groupName?: string; // Novo: Nome do grupo Telegram
 }

@@ -4,6 +4,7 @@ import { Bet, User } from '@prisma/client'
 
 export interface CreateBetData {
   userId: string
+  betId: string
   jogo: string
   placar?: string
   mercado: string
@@ -27,6 +28,7 @@ export class ApostasService {
     const bet = await prisma.bet.create({
       data: {
         userId: data.userId,
+        betId: data.betId,
         jogo: data.jogo,
         placar: data.placar,
         mercado: data.mercado,

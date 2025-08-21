@@ -3,6 +3,13 @@ import AuthService from '@/lib/auth/service';
 
 const authService = new AuthService();
 
+// Serialização segura de BigInt
+function jsonSafe<T>(data: T) {
+  return JSON.parse(
+    JSON.stringify(data, (_, v) => (typeof v === 'bigint' ? v.toString() : v))
+  );
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -23,9 +30,9 @@ export async function POST(request: NextRequest) {
     });
 
     if (result.success) {
-      return NextResponse.json(result, { status: 201 });
+      return NextResponse.json(jsonSafe(result), { status: 201 });
     } else {
-      return NextResponse.json(result, { status: 400 });
+      return NextResponse.json(jsonSafe(result), { status: 400 });
     }
   } catch (error) {
     console.error('Erro na API de registro:', error);

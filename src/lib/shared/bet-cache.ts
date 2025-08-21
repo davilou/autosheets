@@ -15,7 +15,6 @@ export class SharedBetCache {
       let cache: CacheData = {};
       if (fs.existsSync(CACHE_FILE)) {
         const fileContent = fs.readFileSync(CACHE_FILE, 'utf8');
-        console.log(`📖 Conteúdo atual do cache: ${fileContent}`);
         try {
           cache = JSON.parse(fileContent) as CacheData;
         } catch (parseError) {
@@ -27,8 +26,7 @@ export class SharedBetCache {
       cache[key] = betData;
       const newContent = JSON.stringify(cache, null, 2);
       fs.writeFileSync(CACHE_FILE, newContent);
-      console.log(`💾 Aposta salva no cache: ${key}`);
-      console.log(`💾 Cache agora contém ${Object.keys(cache).length} apostas`);
+      console.log(`💾 Aposta salva no cache: ${key} (total: ${Object.keys(cache).length} apostas)`);
     } catch (error) {
       console.error('❌ Erro ao salvar no cache:', error);
     }
@@ -44,7 +42,6 @@ export class SharedBetCache {
       }
       
       const fileContent = fs.readFileSync(CACHE_FILE, 'utf8');
-      console.log(`📖 [CACHE] Conteúdo do arquivo: ${fileContent}`);
       
       let cache: CacheData;
       try {
@@ -56,25 +53,16 @@ export class SharedBetCache {
       const keys = Object.keys(cache);
       const result = cache[key] || null;
       
-      console.log(`📋 [CACHE] Total de apostas: ${keys.length}`);
-      console.log(`📋 [CACHE] Chaves disponíveis: [${keys.join(', ')}]`);
+      console.log(`📋 [CACHE] Total de apostas no cache: ${keys.length}`);
       console.log(`🎯 [CACHE] Chave '${key}' encontrada: ${!!result}`);
       
-      if (result) {
-        console.log(`📊 [CACHE] Dados da aposta:`, {
-          jogo: result.jogo,
-          odd_tipster: result.odd_tipster,
-          data: result.data
-        });
-      } else {
-        console.log(`❌ [CACHE] Chave '${key}' não encontrada`);
-        console.log(`💡 [CACHE] Chaves similares:`);
-        keys.forEach(k => {
-          const similarity = k.includes(key.split('_')[0]) || k.includes(key.split('_')[1]);
-          if (similarity) {
-            console.log(`   - ${k} (similar)`);
-          }
-        });
+      if (!result) {
+        // Logar até 5 chaves similares para debug, sem conteúdo
+        const [p1, p2] = key.split('_');
+        const similares = keys.filter(k => k.includes(p1) || (p2 && k.includes(p2))).slice(0, 5);
+        if (similares.length) {
+          console.log(`💡 [CACHE] Chaves similares: [${similares.join(', ')}]`);
+        }
       }
       
       return result;
@@ -100,6 +88,25 @@ export class SharedBetCache {
       console.log(`🗑️ Aposta removida do cache: ${key}`);
     } catch (error) {
       console.error('Erro ao remover do cache:', error);
+    }
+  }
+
+  static getAllBets(): CacheData {
+    try {
+      if (!fs.existsSync(CACHE_FILE)) {
+        return {};
+      }
+      
+      const fileContent = fs.readFileSync(CACHE_FILE, 'utf8');
+      try {
+        return JSON.parse(fileContent) as CacheData;
+      } catch (parseError) {
+        console.error('❌ [CACHE] Erro ao fazer parse para getAllBets:', parseError instanceof Error ? parseError.message : String(parseError));
+        return {};
+      }
+    } catch (error) {
+      console.error('❌ [CACHE] Erro ao ler todas as apostas:', error);
+      return {};
     }
   }
 }

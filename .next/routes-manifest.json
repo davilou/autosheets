@@ -1,1 +1,221 @@
-{"version":3,"caseSensitive":false,"basePath":"","rewrites":{"beforeFiles":[],"afterFiles":[],"fallback":[]},"redirects":[{"source":"/:path+/","destination":"/:path+","permanent":true,"internal":true,"regex":"^(?:\\/((?:[^\\/]+?)(?:\\/(?:[^\\/]+?))*))\\/$"}],"headers":[{"source":"/api/telegram/webhook","headers":[{"key":"Access-Control-Allow-Origin","value":"https://api.telegram.org"},{"key":"Access-Control-Allow-Methods","value":"POST"},{"key":"Access-Control-Allow-Headers","value":"Content-Type"}],"regex":"^\\/api\\/telegram\\/webhook(?:\\/)?$"},{"source":"/(.*)","headers":[{"key":"X-Frame-Options","value":"DENY"},{"key":"X-Content-Type-Options","value":"nosniff"},{"key":"Referrer-Policy","value":"strict-origin-when-cross-origin"}],"regex":"^(?:\\/(.*))(?:\\/)?$"}]}
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ],
+      "regex": "^(?:/(.*))(?:/)?$"
+    }
+  ],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/api/google-drive/credentials/[id]",
+      "regex": "^/api/google\\-drive/credentials/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/google\\-drive/credentials/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/google-drive/test/[id]",
+      "regex": "^/api/google\\-drive/test/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/google\\-drive/test/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/monitoring/groups/[id]",
+      "regex": "^/api/monitoring/groups/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/monitoring/groups/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/monitoring/groups/[id]/toggle",
+      "regex": "^/api/monitoring/groups/([^/]+?)/toggle(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/monitoring/groups/(?<nxtPid>[^/]+?)/toggle(?:/)?$"
+    },
+    {
+      "page": "/api/monitoring/sessions/[credentialId]",
+      "regex": "^/api/monitoring/sessions/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPcredentialId": "nxtPcredentialId"
+      },
+      "namedRegex": "^/api/monitoring/sessions/(?<nxtPcredentialId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/spreadsheets/[id]",
+      "regex": "^/api/spreadsheets/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/spreadsheets/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/spreadsheets/[id]/apply-changes",
+      "regex": "^/api/spreadsheets/([^/]+?)/apply\\-changes(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/spreadsheets/(?<nxtPid>[^/]+?)/apply\\-changes(?:/)?$"
+    },
+    {
+      "page": "/api/spreadsheets/[id]/backup",
+      "regex": "^/api/spreadsheets/([^/]+?)/backup(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/spreadsheets/(?<nxtPid>[^/]+?)/backup(?:/)?$"
+    },
+    {
+      "page": "/api/spreadsheets/[id]/share",
+      "regex": "^/api/spreadsheets/([^/]+?)/share(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/spreadsheets/(?<nxtPid>[^/]+?)/share(?:/)?$"
+    },
+    {
+      "page": "/api/telegram/credentials/[id]",
+      "regex": "^/api/telegram/credentials/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/telegram/credentials/(?<nxtPid>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/telegram/sessions/[id]",
+      "regex": "^/api/telegram/sessions/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/telegram/sessions/(?<nxtPid>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/favicon.ico",
+      "regex": "^/favicon\\.ico(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/forgot-password",
+      "regex": "^/forgot\\-password(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/forgot\\-password(?:/)?$"
+    },
+    {
+      "page": "/login",
+      "regex": "^/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/login(?:/)?$"
+    },
+    {
+      "page": "/monitoring",
+      "regex": "^/monitoring(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/monitoring(?:/)?$"
+    },
+    {
+      "page": "/profile",
+      "regex": "^/profile(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/profile(?:/)?$"
+    },
+    {
+      "page": "/register",
+      "regex": "^/register(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/register(?:/)?$"
+    },
+    {
+      "page": "/reset-password",
+      "regex": "^/reset\\-password(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/reset\\-password(?:/)?$"
+    },
+    {
+      "page": "/spreadsheets",
+      "regex": "^/spreadsheets(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/spreadsheets(?:/)?$"
+    },
+    {
+      "page": "/telegram",
+      "regex": "^/telegram(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/telegram(?:/)?$"
+    },
+    {
+      "page": "/verify-email",
+      "regex": "^/verify\\-email(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/verify\\-email(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "RSC",
+    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
+    "prefetchHeader": "Next-Router-Prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

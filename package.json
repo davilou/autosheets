@@ -1,3 +1,4 @@
+
 {
   "name": "autosheets",
   "version": "0.1.0",
@@ -7,20 +8,24 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "monitor": "tsx src/scripts/start-gramjs-monitor.ts",
-    "webhook:set": "tsx src/scripts/setup-webhook.ts set",
-    "webhook:delete": "tsx src/scripts/setup-webhook.ts delete",
-    "webhook:info": "tsx src/scripts/setup-webhook.ts info"
+    "monitor": "tsx src/scripts/start-multi-user-monitor.ts",
+    "dev:all": "concurrently -k -n web,monitor -c green,blue \"npm run dev\" \"npm run monitor\""
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^5.1.1",
     "@mtproto/core": "^6.3.0",
+    "@playwright/test": "^1.54.2",
     "@prisma/client": "^6.13.0",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-scroll-area": "^1.2.9",
+    "@radix-ui/react-select": "^2.2.5",
+    "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-switch": "^1.2.5",
+    "@radix-ui/react-tabs": "^1.1.12",
     "@radix-ui/react-toast": "^1.2.14",
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
@@ -34,6 +39,8 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.525.0",
     "next": "15.4.3",
+    "node-fetch": "^3.3.2",
+    "node-telegram-bot-api": "^0.66.0",
     "prisma": "^6.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -59,6 +66,7 @@
     "tailwindcss": "^3.4.17",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
-    "typescript": "^5"
+    "typescript": "^5",
+    "concurrently": "^8.2.2"
   }
 }

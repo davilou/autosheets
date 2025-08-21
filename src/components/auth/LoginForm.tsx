@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -54,7 +55,7 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
         });
         
         if (result.token) {
-          localStorage.setItem('auth_token', result.token);
+          localStorage.setItem('token', result.token);
           onSuccess?.(result.token);
         }
       } else {
@@ -114,6 +115,27 @@ export default function LoginForm({ onSuccess }: LoginFormProps) {
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? 'Entrando...' : 'Entrar'}
           </Button>
+          
+          <div className="space-y-3 pt-4 border-t">
+            <div className="text-center">
+              <Link 
+                href="/forgot-password" 
+                className="text-sm text-blue-600 hover:text-blue-500 font-medium"
+              >
+                Esqueceu sua senha?
+              </Link>
+            </div>
+            
+            <div className="text-center">
+              <span className="text-sm text-gray-600">Não tem uma conta? </span>
+              <Link 
+                href="/register" 
+                className="text-sm text-blue-600 hover:text-blue-500 font-medium"
+              >
+                Criar conta
+              </Link>
+            </div>
+          </div>
         </form>
       </CardContent>
     </Card>

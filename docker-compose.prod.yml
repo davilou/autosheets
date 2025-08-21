@@ -1,6 +1,36 @@
 version: '3.8'
 
 services:
+  # Traefik reverse proxy + Let's Encrypt
+  traefik:
+    image: traefik:v2.11
+    container_name: autosheets_traefik
+    restart: unless-stopped
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.network=autosheets_network
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.email=${LETSENCRYPT_EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --api.dashboard=true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_letsencrypt:/letsencrypt
+    networks:
+      - autosheets_network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.http-catchall.rule=HostRegexp(`{host:.+}`)
+      - traefik.http.routers.http-catchall.entrypoints=web
+      - traefik.http.routers.http-catchall.middlewares=redirect-to-https
+      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
+
   # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
@@ -14,8 +44,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-    ports:
-      - "5432:5432"
     networks:
       - autosheets_network
     healthcheck:
@@ -23,6 +51,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    labels:
+      - traefik.enable=false
 
   # Redis Cache
   redis:
@@ -32,8 +62,6 @@ services:
     command: redis-server --requirepass senha_redis_forte_456 --appendonly yes
     volumes:
       - redis_data:/data
-    ports:
-      - "6379:6379"
     networks:
       - autosheets_network
     healthcheck:
@@ -41,6 +69,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    labels:
+      - traefik.enable=false
 
   # Next.js Application
   autosheets:
@@ -66,14 +96,15 @@ services:
       timeout: 10s
       retries: 5
       start_period: 60s
+    labels:
+      - traefik.enable=false
 
   # Nginx Reverse Proxy
   nginx:
     image: nginx:alpine
     container_name: autosheets_nginx
     restart: unless-stopped
-    ports:
-      - "8080:80"   # HTTP na porta 8080
+    # ports removed; traffic goes through Traefik
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - nginx_logs:/var/log/nginx
@@ -82,11 +113,18 @@ services:
         condition: service_healthy
     networks:
       - autosheets_network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.autosheets.rule=Host(`autosheets.loudigital.shop`)
+      - traefik.http.routers.autosheets.entrypoints=websecure
+      - traefik.http.routers.autosheets.tls.certresolver=letsencrypt
+      - traefik.http.services.autosheets.loadbalancer.server.port=80
 
 volumes:
   postgres_data:
   redis_data:
   nginx_logs:
+  traefik_letsencrypt:
 
 networks:
   autosheets_network:
